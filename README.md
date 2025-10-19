@@ -4,8 +4,8 @@ A Golang tool that edits a given text based on modifiers
 
 ## Use Example
 
-Add two brackets immediately after the word or number you want to modify, using this format: (<modifier>, <number>).
-<number> is optional, for modifying more words.
+Add two brackets immediately after the word or number you want to modify, using this format: ``` (<modifier>, <number>) ```.
+```<number>``` is optional, for modifying more words.
 
 Make sure to respect the space between the word and the brackets, otherwise it will not work.
 
