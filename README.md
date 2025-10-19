@@ -11,12 +11,12 @@ Make sure to respect the space between the word and the brackets, otherwise it w
 
 ## Running the tool
 
-Tester needs to save his text in a .txt file and keep it in the same directory as the main.go program. To run, use 
+Save a .txt file and keep it in the same directory as the main.go program. To run, use 
 ```
 go run . <input.txt> <output.txt>
 ```
 
-You can find an example file for input [here](examples/example.txt)
+There is an example file to use as input.txt [here](examples/example.txt)
 
 ## What To Expect
 
