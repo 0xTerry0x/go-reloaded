@@ -49,7 +49,7 @@
 της λέξης που περιέχουν, χωρίς κανένα κενό ανάμεσα
 π.χ. "I am exactly how they describe me: ' awesome '" -> "I am exactly how they describe me: 'awesome'"
 
-** Αν υπάρχει περισσότερη από μία λέξη μέσα στα ' ' τότε θα πρέπει να μην υπάρχει κανένα
+**Σημειωση:** Αν υπάρχει περισσότερη από μία λέξη μέσα στα ' ' τότε θα πρέπει να μην υπάρχει κανένα
 κενό ανάμεσα στα "'" και στη λέξη δίπλα του
 π.χ. "As Elton John said: ' I am the most well-known homosexual in the world '" -> "As Elton John said: 'I am the most well-known homosexual in the world'"
 
