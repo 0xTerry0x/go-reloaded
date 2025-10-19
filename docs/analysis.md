@@ -32,7 +32,7 @@
 αμέσως προηγούμενης λέξης σε κεφαλαίο
 π.χ. "Welcome to the Brooklyn bridge (cap)" -> "Welcome to the Brooklyn Bridge"
 
-** Σε περίπτωση που μέσα στις παρενθέσεις βρίσκονται και αριθμοί σε
+**Σημειωση:** Σε περίπτωση που μέσα στις παρενθέσεις βρίσκονται και αριθμοί σε
 μορφή (<λέξη>, <αριθμός>), τότε η μετατροπή ισχύει για τις <αριθμός> λέξεις
 πριν την παρένθεση
 π.χ. "This is so exciting (up, 2)" -> "This is SO EXCITING"
@@ -41,7 +41,7 @@
 να απέχει ένα κενό με την επόμενη
 π.χ. "I was sitting over there ,and then BAMM !!" -> "I was sitting over there, and then BAMM!!"
 
-** Σε περίπτωση που υπάρχει "..." ή "!?" θα ομαδοποιούνται και θα ισχύει ο παραπάνω
+**Σημειωση:** Σε περίπτωση που υπάρχει "..." ή "!?" θα ομαδοποιούνται και θα ισχύει ο παραπάνω
 κανόνας κανονικά
 π.χ. "I was thinking ... You were right" -> "I was thinking... You were right"
 
@@ -75,7 +75,7 @@
 
 Βασικά test cases από τα audit examples του project:
 
-## If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?
+```If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?```
 
 Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές αλλαγής μορφοποίησης (κεφαλαία/πεζά)
 στις λέξεις μιας πρότασης.
@@ -88,7 +88,7 @@
 Άρα το αποτέλεσμα θα πρέπει να είναι:
 If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?
 
-## I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure.
+```I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure.```
 
 Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές μετατροπής
 αριθμητικών μορφών (δυαδικό, δεκαεξαδικό) σε δεκαδική μορφή μέσα σε μια πρόταση.
@@ -100,7 +100,7 @@ If I make you breakfast in bed just say thank you instead of: How did you get in
 Άρα το αποτέλεσμα θα πρέπει να είναι:
 I have to pack 5 outfits. Packed 26 just to be sure.
 
-## Don not be sad ,because sad backwards is das . And das not good
+```Do not be sad ,because sad backwards is das . And das not good```
 
 Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τη διόρθωση στίξης μέσα
 στην πρόταση (διαχείριση κενών πριν και μετά από σημεία στίξης).
@@ -111,9 +111,9 @@ I have to pack 5 outfits. Packed 26 just to be sure.
 **Μετά από κάθε σημείο στίξης θα πρέπει να υπάρχει ένα κενό αν υπάρχει και άλλη λέξη έπειτα**
 
 Άρα το αποτέλεσμα θα πρέπει να είναι:
-Don not be sad, because sad backwards is das. And das not good
+Do not be sad, because sad backwards is das. And das not good
 
-## harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '
+```harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '```
 Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές μορφοποίησης κειμένου
 και στίξης (κεφαλαίο πρώτο γράμμα, άρθρα, κόμματα, τελείες) μέσα στην πρόταση.
 
@@ -126,26 +126,26 @@ Don not be sad, because sad backwards is das. And das not good
 Άρα το αποτέλεσμα θα πρέπει να είναι:
 Harold Wilson: 'I am an optimist, but an optimist who carries a raincoat.'
 
-**Παραδείγματα tricky περιπτώσεων** που θα χρειαστεί να αντιμετωπίσουμε:
+### Παραδείγματα tricky περιπτώσεων που θα χρειαστεί να αντιμετωπίσουμε:
 
-- i love PYtHOn (cap)!
+```i love PYtHOn (cap)!```
 
 Εδώ θα χρειαστεί να μετατρέψουμε όλα τα γράμματα που είναι κεφαλαία (εκτός από την πρώτη)
 σε πεζά, καθώς το cap μετατρέπει ολόκληρη την λέξη σε capitalized μορφή
 
-- the playground was too easy ( up)
+```the playground was too easy ( up)```
 
 Εδώ δεν θα πρέπει να γίνει καμία αλλαγή, καθώς ο χρήστης δεν έγραψε σωστά το format του modifier
 
-- i love golang (up, 10)
+```i love golang (up, 10)```
 
 Θα πρέπει ο κώδικας να μην εμφανίζει κάποιο error όταν ο χρήστης θέλει να κάνει modify
 περισσότερες από τις υπάρχουσες λέξεις
 
-- i love typescript (up, 0)
+```i love typescript (up, 0)```
 
 Δεν θα πρέπει να γίνεται καμία αλλαγή
 
-- i love javascript (up, -1) a lot
+```i love javascript (up, -1) a lot```
 
 Εδώ θα πρέπει η επόμενη λέξη να αλλάζει, δηλαδή το a, όχι η προηγούμενη
