@@ -11,7 +11,7 @@ Make sure to respect the space between the word and the brackets, otherwise it w
 
 ## Running the tool
 
-Save a .txt file and keep it in the same directory as the main.go program. To run, use 
+Save your content in a .txt file and keep it in the same directory as the main.go program. To run, use 
 ```
 go run . <input.txt> <output.txt>
 ```
