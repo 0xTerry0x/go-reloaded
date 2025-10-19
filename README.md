@@ -16,6 +16,8 @@ Tester needs to save his text in a .txt file and keep it in the same directory a
 go run . <input.txt> <output.txt>
 ```
 
+You can find an example file for input [here](examples/example.txt)
+
 ## What To Expect
 
-The tool will always create an output file. If a modifier doesn't trigger, you didn't respect a rule. You can read in detail here:[Analysis Document](docs/analysis.md)
+The tool will always create an output file. If a modifier doesn't trigger, you didn't respect a rule. You can read in detail [here](docs/analysis.md)
