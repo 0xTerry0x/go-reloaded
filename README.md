@@ -18,4 +18,4 @@ go run . <input.txt> <output.txt>
 
 ## What To Expect
 
-The tool will always create an output file. If a modifier doesn't trigger, you didn't respect a rule. You can read in detail here:
+The tool will always create an output file. If a modifier doesn't trigger, you didn't respect a rule. You can read in detail here:[Analysis Document](docs/analysis.md)
