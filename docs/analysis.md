@@ -49,7 +49,7 @@ e.g. "Welcome to the Brooklyn bridge (cap)" -> "Welcome to the Brooklyn Bridge"
 before the parentheses
 e.g. "This is so exciting (up, 2)" -> "This is SO EXCITING"
 
-- Every `, `, `.`, `!`, `?`, `:` and `;` must be close to the previous word and
+- Every <code>,</code>, <code>.</code>, <code>!</code>, <code>?</code>, <code>:</code>, and <code>;</code> must be close to the previous word and
 separated by one space from the next one
 e.g. "I was sitting over there ,and then BAMM !!" -> "I was sitting over there, and then BAMM!!"
 
