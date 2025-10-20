@@ -1,20 +1,19 @@
 # Analysis document
 
 We have the following documents in the repository:
-- The Go program that you can find [here](cmd/main.go)
+- The Go program that you can find [here](go-reloaded/cmd/main.go)
 - A README.md document that explains how to use the program
 - An example file to test and understand how the program processes different cases, located [here](examples/example.txt)
-- Vendored dependencies which contains all the helper functions originally from the private 'piscine-go' repository
+- pkg/piscine which contains all the necessary functions originally taken from the private piscine-go repository.
 
 ## How to start:
 
 1) Clone the repository:
 ```git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git```
 ```cd go-reloaded```
-2) Make sure Go modules are tidy and vendor folder is active:
-```go mod tidy```
-```go mod vendor```
-3) Make sure the .txt file you want to use as input is inside cmd/
+2) Make sure the .txt file you want to use as input is inside cmd/
+3) Run the program:
+```go run ./cmd/main.go <input.txt> <output.txt>```
 
 ## Rules & Use Case:
 
