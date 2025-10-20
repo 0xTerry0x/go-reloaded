@@ -9,11 +9,15 @@ We have the following documents in the repository:
 ## How to start:
 
 1) Clone the repository:
-```git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git```
-```cd go-reloaded```
+```bash
+git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git
+cd go-reloaded
+```
 2) Make sure the .txt file you want to use as input is inside cmd/
 3) Run the program:
-```go run ./cmd/main.go <input.txt> <output.txt>```
+```bash
+go run ./cmd/main.go <input.txt> <output.txt>
+```
 
 ## Rules & Use Case:
 
