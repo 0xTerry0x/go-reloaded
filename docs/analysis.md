@@ -1,151 +1,160 @@
 # Analysis document
 
-Έχουμε στο repository 3 έγγραφα:
-- Το ένα είναι το go πρόγραμμα
-- Το δεύτερο είναι το README.md έγγραφο που αναλύει τι κάνει το πρόγραμμα και ποιες
-είναι οι συνθήκες του
-- Ένα example.txt έγγραφο για να βοηθήσει τον χρήστη να καταλάβει καλύτερα
+We have the following documents in the repository:
+- The Go program that you can find [here](cmd/main.go)
+- A README.md document that explains how to use the program
+- An example file to test and understand how the program processes different cases, located [here](examples/example.txt)
+- Vendored dependencies which contains all the helper functions originally from the private 'piscine-go' repository
 
-Ο χρήστης που θέλει να χρησιμοποιήσει το πρόγραμμα θα χρειαστεί να
-δημιουργήσει/μεταφέρει στο ίδιο directory ένα
-έγγραφο .txt το οποίο θα μπορεί να διαβάζει τα modifiers μέσα στις παρενθέσεις και θα
-κάνει τις απαραίτητες αλλαγές.
+## How to start:
 
-- Άμα μέσα στην παρένθεση υπάρχει η λέξη 'hex' τότε θα μετατρέπει την αμέσως
-προηγούμενη λέξη στην δεκαδική μορφή του (η λέξη αυτή θα είναι πάντα ένας δεκαεξαδικός
-αριθμός ώστε να είναι εφικτή η μετατροπή του)
-π.χ. "1E (hex) files were added" -> "30 files were added"
+1) Clone the repository:
+```git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git```
+```cd go-reloaded```
+2) Make sure Go modules are tidy and vendor folder is active:
+```go mod tidy```
+```go mod vendor```
+3) Make sure the .txt file you want to use as input is inside cmd/
 
-- Άμα μέσα στην παρένθεση υπάρχει η λέξη 'bin' τότε θα μετατρέπει την αμέσως
-προηγούμενη λέξη στην δεκαδική μορφή του (η λέξη αυτή θα είναι πάντα ένας δυαδικός αριθμός ώστε να είναι εφικτή η μετατροπή του)
-π.χ. "It has been 10 (bin) years" -> "It has been 2 years"
+## Rules & Use Case:
 
-- Άμα μέσα στην παρένθεση υπάρχει η λέξη 'up' τότε θα μετατρέπει όλα τα γράμματα της
-αμέσως προηγούμενης λέξης σε κεφαλαία
-π.χ."Ready, set, go (up) !" -> "Ready, set, GO!"
+Add two brackets immediately after the word or number you want to modify, using this format: ``` (<modifier>, <number>) ```.
+```<number>``` is optional, for modifying more words.
 
-- Άμα μέσα στην παρένθεση υπάρχει η λέξη 'low' τότε θα μετατρέπει όλα τα γράμματα της
-αμέσως προηγούμενης λέξης που είναι κεφαλαία σε μικρά
-π.χ. "I should stop SHOUTING (low)" -> "I should stop shouting"
+- If inside the parentheses there is the word 'hex' then it will convert the immediately
+previous word to its decimal form (that word will always be a hexadecimal
+number so that the conversion is possible)
+e.g. "1E (hex) files were added" -> "30 files were added"
 
-- Άμα μέσα στην παρένθεση υπάρχει η λέξη 'cap' τότε θα μετατρέπει το πρώτο γράμμα της
-αμέσως προηγούμενης λέξης σε κεφαλαίο
-π.χ. "Welcome to the Brooklyn bridge (cap)" -> "Welcome to the Brooklyn Bridge"
+- If inside the parentheses there is the word 'bin' then it will convert the immediately
+previous word to its decimal form (that word will always be a binary number so that the conversion is possible)
+e.g. "It has been 10 (bin) years" -> "It has been 2 years"
 
-**Σημειωση:** Σε περίπτωση που μέσα στις παρενθέσεις βρίσκονται και αριθμοί σε
-μορφή (<λέξη>, <αριθμός>), τότε η μετατροπή ισχύει για τις <αριθμός> λέξεις
-πριν την παρένθεση
-π.χ. "This is so exciting (up, 2)" -> "This is SO EXCITING"
+- If inside the parentheses there is the word 'up' then it will convert all letters of the
+immediately previous word to uppercase
+e.g. "Ready, set, go (up) !" -> "Ready, set, GO!"
 
-- Κάθε ",", ".", "!", "?", ":" και ";" πρέπει να είναι κοντά στην προηγούμενη λέξη και
-να απέχει ένα κενό με την επόμενη
-π.χ. "I was sitting over there ,and then BAMM !!" -> "I was sitting over there, and then BAMM!!"
+- If inside the parentheses there is the word 'low' then it will convert all letters of the
+immediately previous word that are uppercase to lowercase
+e.g. "I should stop SHOUTING (low)" -> "I should stop shouting"
 
-**Σημειωση:** Σε περίπτωση που υπάρχει "..." ή "!?" θα ομαδοποιούνται και θα ισχύει ο παραπάνω
-κανόνας κανονικά
-π.χ. "I was thinking ... You were right" -> "I was thinking... You were right"
+- If inside the parentheses there is the word 'cap' then it will convert the first letter of the
+immediately previous word to uppercase
+e.g. "Welcome to the Brooklyn bridge (cap)" -> "Welcome to the Brooklyn Bridge"
 
-- Κάθε "'" θα είναι μαζί με ένα δεύτερο "'" και θα πρέπει να βρίσκονται δεξιά και αριστερά
-της λέξης που περιέχουν, χωρίς κανένα κενό ανάμεσα
-π.χ. "I am exactly how they describe me: ' awesome '" -> "I am exactly how they describe me: 'awesome'"
+**Note:** In case there are also numbers inside the parentheses, the transformation applies to the <number> words
+before the parentheses
+e.g. "This is so exciting (up, 2)" -> "This is SO EXCITING"
 
-**Σημειωση:** Αν υπάρχει περισσότερη από μία λέξη μέσα στα ' ' τότε θα πρέπει να μην υπάρχει κανένα
-κενό ανάμεσα στα "'" και στη λέξη δίπλα του
-π.χ. "As Elton John said: ' I am the most well-known homosexual in the world '" -> "As Elton John said: 'I am the most well-known homosexual in the world'"
+- Every ",", ".", "!", "?", ":" and ";" must be close to the previous word and
+separated by one space from the next one
+e.g. "I was sitting over there ,and then BAMM !!" -> "I was sitting over there, and then BAMM!!"
 
-- Τέλος, θα μετατρέπει το 'a' σε 'an' αν η επόμενη λέξη ξεκινάει με φωνήεν.
-π.χ. "There it was. A amazing rock!" -> "There it was. An amazing rock!"
+**Note:** In case there is "..." or "!?" they should be grouped and the same rule applies
+e.g. "I was thinking ... You were right" -> "I was thinking... You were right"
 
-## Διαφορά pipeline με FSM
+- Every "'" must come in a pair and must be directly next to the words they contain,
+with no spaces between them
+e.g. "I am exactly how they describe me: ' awesome '" -> "I am exactly how they describe me: 'awesome'"
 
-Οι αρχιτεκτονικές Pipeline και FSM (Finite State Machine) είναι δύο τρόποι να φτιάξεις ένα σύστημα που κάνει δουλειές βήμα-βήμα.
+**Note:** If there is more than one word inside the single quotes, there should be no
+spaces between the quotes and the text inside
+e.g. "As Elton John said: ' I am the most well-known homosexual in the world '" -> "As Elton John said: 'I am the most well-known homosexual in the world'"
 
-- Pipeline: Χωρίζει τη δουλειά σε στάδια, και κάθε στάδιο δουλεύει ταυτόχρονα με τα άλλα — σαν εργοστάσιο όπου κάθε εργάτης κάνει ένα μέρος της δουλειάς.
-Έτσι, γίνεται πιο γρήγορη η συνολική εργασία, αλλά χρησιμοποιείται πιο πολύ μνήμη
+- Finally, it will replace 'a' with 'an' if the next word starts with a vowel.
+e.g. "There it was. A amazing rock!" -> "There it was. An amazing rock!"
 
-- FSM: Το σύστημα κάνει ένα βήμα τη φορά, αλλάζει «κατάσταση» ανάλογα με το τι συμβαίνει. Είναι συνήθως πιο αργό, αλλά πολύ αποτελεσματικό αν θέλουμε να
-χρησιμοποιήσουμε όσο πιο λίγη μνήμη γίνεται
+## Difference between pipeline and FSM
 
-Προσωπική επιλογή: Θα διάλεγα το Pipeline, γιατί επιτρέπει να γίνονται πολλά πράγματα ταυτόχρονα, κάνοντας το σύστημα πιο γρήγορο και αποδοτικό, το οποίο είναι
-σημαντικότερο για μένα από την αποδοτικότητα της μνήμης
+The Pipeline and FSM (Finite State Machine) architectures are two ways to build a system that performs tasks step by step.
+
+- Pipeline: Divides the work into stages, and each stage works simultaneously with the others — like a factory where each worker does one part of the job.
+This makes the overall process faster but uses more memory.
+
+- FSM: The system performs one step at a time and changes “state” depending on what happens. It’s usually slower but very efficient when we want to
+use as little memory as possible.
+
+Personal choice: I would choose Pipeline, because it allows multiple things to happen simultaneously, making the system faster and more efficient, which is
+more important to me than memory efficiency.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # "Golden Test Set" (Success Test Cases)
 
-Βασικά test cases από τα audit examples του project:
+Basic test cases from the project’s audit examples:
 
 ```If I make you BREAKFAST IN BED (low, 3) just say thank you instead of: how (cap) did you get in my house (up, 2) ?```
 
-Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές αλλαγής μορφοποίησης (κεφαλαία/πεζά)
-στις λέξεις μιας πρότασης.
+Purpose: to verify that the system correctly applies formatting commands (uppercase/lowercase)
+to the words in a sentence.
 
-Το σύστημα εντοπίζει την εντολή:
-1) (low, 3) και μετατρέπει τις τρεις λέξεις που προηγούνται (BREAKFAST, IN, BED) σε πεζά -> breakfast, in, bed
-2) (cap) και μετατρέπει το πρώτο γράμμα της λέξης how σε κεφαλαίο -> How.
-3) (up, 2) και μετατρέπει τις δύο επόμενες λέξεις (my, house) σε κεφαλαία -> MY HOUSE.
+The system detects the following commands:
+1) (low, 3) converts the three preceding words (BREAKFAST, IN, BED) to lowercase -> breakfast, in, bed
+2) (cap) capitalizes the first letter of the word how -> How.
+3) (up, 2) converts the two following words (my, house) to uppercase -> MY HOUSE.
 
-Άρα το αποτέλεσμα θα πρέπει να είναι:
+So the result should be:
 If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?
 
 ```I have to pack 101 (bin) outfits. Packed 1a (hex) just to be sure.```
 
-Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές μετατροπής
-αριθμητικών μορφών (δυαδικό, δεκαεξαδικό) σε δεκαδική μορφή μέσα σε μια πρόταση.
+Purpose: to verify that the system correctly applies
+numeric conversion commands (binary, hexadecimal) to decimal form within a sentence.
 
-Το σύστημα εντοπίζει την εντολή:
-1) (bin) και μετατρέπει τον δυαδικό αριθμό 101 σε δεκαδικό → 5.
-2) (hex) και μετατρέπει τον δεκαεξαδικό αριθμό 1a σε δεκαδικό → 26.
+The system detects the following commands:
+1) (bin) converts the binary number 101 to decimal → 5.
+2) (hex) converts the hexadecimal number 1a to decimal → 26.
 
-Άρα το αποτέλεσμα θα πρέπει να είναι:
+So the result should be:
 I have to pack 5 outfits. Packed 26 just to be sure.
 
 ```Do not be sad ,because sad backwards is das . And das not good```
 
-Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τη διόρθωση στίξης μέσα
-στην πρόταση (διαχείριση κενών πριν και μετά από σημεία στίξης).
+Purpose: to verify that the system correctly fixes punctuation
+inside the sentence (handling spaces before and after punctuation marks).
 
-Το σύστημα εντοπίζει τα λάθη στίξης και:
-1) Αφαιρεί το περιττό κενό πριν από το κόμμα μετά τη λέξη sad → sad, because...
-2) Αφαιρεί το περιττό κενό πριν από την τελεία μετά τη λέξη das → das.
-**Μετά από κάθε σημείο στίξης θα πρέπει να υπάρχει ένα κενό αν υπάρχει και άλλη λέξη έπειτα**
+The system detects punctuation errors and:
+1) Removes the extra space before the comma after the word sad → sad, because...
+2) Removes the extra space before the period after the word das → das.
+**After each punctuation mark there should be exactly one space if another word follows**
 
-Άρα το αποτέλεσμα θα πρέπει να είναι:
+So the result should be:
 Do not be sad, because sad backwards is das. And das not good
 
 ```harold wilson (cap, 2) : ' I am a optimist ,but a optimist who carries a raincoat . '```
-Σκοπός είναι να ελεγχθεί ότι το σύστημα εφαρμόζει σωστά τις εντολές μορφοποίησης κειμένου
-και στίξης (κεφαλαίο πρώτο γράμμα, άρθρα, κόμματα, τελείες) μέσα στην πρόταση.
 
-Το σύστημα εντοπίζει τις εντολές:
-1) (cap, 2) και μετατρέπει τις δύο πρώτες λέξεις harold wilson ώστε να αρχίζουν με κεφαλαίο → Harold Wilson.
-2) Αφαιρεί τα περιττά κενά μετά τα σημεία στίξης (π.χ. μετά το κόμμα και πριν από την τελεία).
-3) Διορθώνει το άρθρο a σε an πριν από λέξη που αρχίζει με φωνήεν → an optimist.
-4) Τοποθετεί σωστά τα σημεία στίξης και αφαιρεί τα περιττά κενά μέσα στα εισαγωγικά
+Purpose: to verify that the system correctly applies text formatting
+and punctuation rules (capitalization, articles, commas, periods) within the sentence.
 
-Άρα το αποτέλεσμα θα πρέπει να είναι:
+The system detects:
+1) (cap, 2) capitalizes the first two words harold wilson → Harold Wilson.
+2) Removes unnecessary spaces after punctuation marks (e.g., after commas and before periods).
+3) Corrects the article a to an before a word starting with a vowel → an optimist.
+4) Places punctuation correctly and removes extra spaces inside quotation marks.
+
+So the result should be:
 Harold Wilson: 'I am an optimist, but an optimist who carries a raincoat.'
 
-### Παραδείγματα tricky περιπτώσεων που θα χρειαστεί να αντιμετωπίσουμε:
+### Examples of tricky cases we need to handle:
 
 ```i love PYtHOn (cap)!```
 
-Εδώ θα χρειαστεί να μετατρέψουμε όλα τα γράμματα που είναι κεφαλαία (εκτός από την πρώτη)
-σε πεζά, καθώς το cap μετατρέπει ολόκληρη την λέξη σε capitalized μορφή
+Here, we should convert all letters that are uppercase (except the first one)
+to lowercase, since cap transforms the entire word into capitalized form.
 
 ```the playground was too easy ( up)```
 
-Εδώ δεν θα πρέπει να γίνει καμία αλλαγή, καθώς ο χρήστης δεν έγραψε σωστά το format του modifier
+Here, nothing should change, because the user did not write the modifier in the correct format.
 
 ```i love golang (up, 10)```
 
-Θα πρέπει ο κώδικας να μην εμφανίζει κάποιο error όταν ο χρήστης θέλει να κάνει modify
-περισσότερες από τις υπάρχουσες λέξεις
+The code should not throw any error when the user tries to modify
+more words than the ones that actually exist.
 
 ```i love typescript (up, 0)```
 
-Δεν θα πρέπει να γίνεται καμία αλλαγή
+No change should be made.
 
 ```i love javascript (up, -1) a lot```
 
-Εδώ θα πρέπει η επόμενη λέξη να αλλάζει, δηλαδή το a, όχι η προηγούμενη
+Here, the next word (a) should be modified instead of the previous one.
