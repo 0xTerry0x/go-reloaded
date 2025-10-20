@@ -11,12 +11,14 @@ Make sure to respect the space between the word and the brackets, otherwise it w
 
 ## Running the tool
 
-Save your content in a .txt file and keep it in the same directory as the main.go program. To run, use 
+Save your content in a .txt file and keep it in the same directory as the main.go program. To run, use
 ```
-go run . <input.txt> <output.txt>
+go run main.go <input.txt> <output.txt>
 ```
 
 There is an example file to use as input.txt [here](examples/example.txt)
+
+Read the [full guide](docs/analysis.md)
 
 ## What To Expect
 
