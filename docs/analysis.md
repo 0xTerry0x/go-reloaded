@@ -1,9 +1,9 @@
 # Analysis document
 
 We have the following documents in the repository:
-- The Go program that you can find [here](go-reloaded/cmd/main.go)
+- The Go program that you can find [here](../cmd/main.go)
 - A README.md document that explains how to use the program
-- An example file to test and understand how the program processes different cases, located [here](examples/example.txt)
+- An example file to test and understand how the program processes different cases, located [here](../example.txt)
 - pkg/piscine which contains all the necessary functions originally taken from the private piscine-go repository.
 
 ## How to start:
