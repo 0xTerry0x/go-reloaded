@@ -29,19 +29,7 @@ The project could have been implemented using a **Finite State Machine (FSM)**, 
 
 ## 3. High-Level Design
 
-┌─────────────┐ ┌────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────┐
-│ Input File │ --> │ Reader │ --> │ Tokenizer │ --> │ Modifier Parser │ --> │ Transformers │
-└─────────────┘ └────────────┘ └──────────────────┘ └──────────────────┘ └──────────────┘
-│
-v
-┌──────────────┐
-│ Formatter │
-└──────────────┘
-│
-v
-┌──────────────┐
-│ Output File │
-└──────────────┘
+<pre> ```text ┌─────────────┐ ┌────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────┐ │ Input File │ --> │ Reader │ --> │ Tokenizer │ --> │ Modifier Parser │ --> │ Transformers │ └─────────────┘ └────────────┘ └──────────────────┘ └──────────────────┘ └──────────────┘ │ v ┌──────────────┐ │ Formatter │ └──────────────┘ │ v ┌──────────────┐ │ Output File │ └──────────────┘ ``` </pre>
 
 ---
 
@@ -178,7 +166,7 @@ Future enhancements:
 ## 10. Diagram — Transformation Flow
 
 ```go
-Reader → Tokenizer → ModifierParser → TransformStages → Formatter → Writer
+Reader -> Tokenizer -> ModifierParser -> TransformStages -> Formatter -> Writer
 ```
 Each arrow represents a channel communication step.
 
