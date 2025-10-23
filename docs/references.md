@@ -65,9 +65,8 @@ Provide authoritative learning resources, documentation links, and conceptual re
 **Recommended Progression:**
 1. Learn basic Go syntax (Go Tour).  
 2. Understand `testing` and TDD principles.  
-3. Study concurrency (channels, goroutines).  
-4. Practice pipeline design and refactoring.  
-5. Contribute to *Go Reloaded* with AI pair programming.
+3. Practice pipeline design and refactoring.  
+4. Contribute to *Go Reloaded* with AI pair programming.
 
 ---
 
