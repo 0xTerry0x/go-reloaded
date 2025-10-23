@@ -30,8 +30,7 @@ The project could have been implemented using a **Finite State Machine (FSM)**, 
 ## 3. High-Level Design
 
 ```go
-Inpout File -> Reader -> Tokenizer -> Modifier Parser -> 
-Transformers -> Formatter -> Output File
+Inpout File -> Reader -> Tokenizer -> Modifier Parser -> Transformers -> Formatter -> Output File
 ```
 
 ---
