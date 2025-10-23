@@ -12,7 +12,7 @@ Provide authoritative learning resources, documentation links, and conceptual re
 | Go Tour | Interactive tutorial on Go syntax and concepts. | https://go.dev/tour |
 | Go Packages | Official package documentation browser. | https://pkg.go.dev |
 | Effective Go | Best practices and idiomatic Go guidance. | https://go.dev/doc/effective_go |
-| Code Review Comments | Conventions for clean, idiomatic Go code. | https://github.com/golang/go/wiki/CodeReviewComments |
+| Code Review Comments | Conventions for clean, idiomatic Go code. | https://go.dev/wiki/CodeReviewComments |
 
 ---
 
@@ -21,8 +21,8 @@ Provide authoritative learning resources, documentation links, and conceptual re
 | Topic | Description | Link |
 |--------|--------------|------|
 | Go Testing Package | Built-in unit testing tools. | https://pkg.go.dev/testing |
-| Table-Driven Tests | Idiomatic test structure in Go. | https://github.com/golang/go/wiki/TableDrivenTests |
-| Mocking in Go | Using interfaces for test doubles. | https://medium.com/@matryer/mocking-in-go-testify-and-monkey-patching-6a29d3c8464 |
+| Table-Driven Tests | Idiomatic test structure in Go. | https://go.dev/wiki/TableDrivenTests |
+| Mocking in Go | Using interfaces for test doubles. | https://medium.com/@ninucium/mocking-integration-tests-in-go-nina-pakshina-d01eefe5251d |
 | Test Coverage | Running and reading test coverage reports. | https://go.dev/blog/cover |
 
 ---
@@ -53,10 +53,9 @@ Provide authoritative learning resources, documentation links, and conceptual re
 
 | Topic | Description | Link |
 |--------|--------------|------|
-| Meta Prompting for Developers | How to design prompts for coding with AI. | https://learnprompting.org/docs/prompt_engineering |
-| Using GPT for TDD | Example of test-first development with LLMs. | https://martinfowler.com/articles/ai-assisted-tdd.html |
+| Meta Prompting for Developers | How to design prompts for coding with AI. | https://learnprompting.org/docs/introduction |
 | DeepSeek & GPT Agents | Leveraging AI co-developers effectively. | https://deepseek.com/ |
-| AI Code Reviews | Using LLMs for automated Go code reviews. | https://arxiv.org/abs/2305.15239 |
+| AI Code Reviews | Using LLMs for automated Go code reviews. | https://udlbook.github.io/udlbook/ |
 
 ---
 
