@@ -29,7 +29,10 @@ The project could have been implemented using a **Finite State Machine (FSM)**, 
 
 ## 3. High-Level Design
 
-<pre> ```text ┌─────────────┐ ┌────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────┐ │ Input File │ --> │ Reader │ --> │ Tokenizer │ --> │ Modifier Parser │ --> │ Transformers │ └─────────────┘ └────────────┘ └──────────────────┘ └──────────────────┘ └──────────────┘ │ v ┌──────────────┐ │ Formatter │ └──────────────┘ │ v ┌──────────────┐ │ Output File │ └──────────────┘ ``` </pre>
+```go
+Inpout File -> Reader -> Tokenizer -> Modifier Parser -> 
+Transformers -> Formatter -> Output File
+```
 
 ---
 
