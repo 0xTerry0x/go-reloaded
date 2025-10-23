@@ -27,17 +27,7 @@ Provide authoritative learning resources, documentation links, and conceptual re
 
 ---
 
-## 3. Concurrency & Pipeline Patterns
-
-| Topic | Description | Link |
-|--------|--------------|------|
-| Go Concurrency Patterns | Official blog post on channel pipelines. | https://go.dev/blog/pipelines |
-| Channels and Goroutines | Language constructs for concurrent execution. | https://go.dev/doc/effective_go#concurrency |
-| Context and Cancellation | Managing long-running pipelines safely. | https://pkg.go.dev/context |
-
----
-
-## 4. String Processing & Text Handling
+## 3. String Processing & Text Handling
 
 | Topic | Description | Link |
 |--------|--------------|------|
@@ -48,7 +38,7 @@ Provide authoritative learning resources, documentation links, and conceptual re
 
 ---
 
-## 5. Software Architecture & Agile Practices
+## 4. Software Architecture & Agile Practices
 
 | Topic | Description | Link |
 |--------|--------------|------|
@@ -59,7 +49,7 @@ Provide authoritative learning resources, documentation links, and conceptual re
 
 ---
 
-## 6. AI-Assisted Development Resources
+## 5. AI-Assisted Development Resources
 
 | Topic | Description | Link |
 |--------|--------------|------|
@@ -70,7 +60,7 @@ Provide authoritative learning resources, documentation links, and conceptual re
 
 ---
 
-## 7. Learning Path for Junior Developers
+## 6. Learning Path for Junior Developers
 
 **Recommended Progression:**
 1. Learn basic Go syntax (Go Tour).  
