@@ -21,8 +21,7 @@ The architecture follows a **Pipeline Pattern**, chosen for its modularity, simp
 The project could have been implemented using a **Finite State Machine (FSM)**, but the **Pipeline** architecture provides:
 
 - **Modularity:** Each transformation is a self-contained stage.  
-- **Composability:** Stages can be reordered or extended easily.  
-- **Parallelism:** Future optimization can run stages concurrently using Go routines.  
+- **Composability:** Stages can be reordered or extended easily.   
 - **Ease of Testing:** Each stage can be unit tested independently.
 
 ---
@@ -115,24 +114,7 @@ If I make you breakfast in bed just say thank you instead of: How did you get in
 
 ---
 
-## 6. Concurrency Model
-
-While the initial implementation may process stages sequentially, the architecture supports future concurrency via Go routines:
-```go
-func Pipeline(stages ...Stage) <-chan string {
-    in := make(chan string)
-    var out <-chan string = in
-    for _, stage := range stages {
-        out = stage.Process(out)
-    }
-    return out
-}
-```
-Each stage may internally run in its own goroutine, allowing parallel processing of tokens or lines.
-
----
-
-## 7. Error Handling Strategy
+## 6. Error Handling Strategy
 
 - Each stage returns errors through a side-channel or logs them.
 
@@ -142,7 +124,7 @@ Each stage may internally run in its own goroutine, allowing parallel processing
 
 ---
 
-## 8. Extensibility
+## 7. Extensibility
 
 Future enhancements:
 
@@ -154,7 +136,7 @@ Future enhancements:
 
 ---
 
-## 9. Architectural Rationale
+## 8. Architectural Rationale
 
 | Design Choice                  | Reason                                                        |
 | ------------------------------ | ------------------------------------------------------------- |
@@ -165,7 +147,7 @@ Future enhancements:
 
 ---
 
-## 10. Diagram — Transformation Flow
+## 9. Diagram — Transformation Flow
 
 ```go
 Reader -> Tokenizer -> ModifierParser -> TransformStages -> Formatter -> Writer
@@ -174,7 +156,7 @@ Each arrow represents a channel communication step.
 
 ---
 
-## 11. Testing Strategy Alignment
+## 10. Testing Strategy Alignment
 
 - Unit tests for each stage (pure functions).
 
@@ -184,7 +166,7 @@ Each arrow represents a channel communication step.
 
 ---
 
-## 12. Conclusion
+## 11. Conclusion
 
 The *Go Reloaded* architecture embraces the **Pipeline Pattern** for clarity, extensibility, and maintainability.
 It aligns perfectly with the TDD-driven incremental tasks defined in [development_plan.md](./development_plan.md)
