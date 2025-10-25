@@ -71,4 +71,4 @@ You are GPT-Codex executing **Tokenizer & Marker Parser (TASK-002)**.
 
 ### Step 4 — QA & Mark Complete
 - Run `go test ./internal/text -run Test`.
-- If self-verification passes, output: **“✅ Tokenizer & Marker Parser (TASK-202) self-verified. Please approve to mark Done.”**
+- If self-verification passes, output: **“✅ Tokenizer & Marker Parser (TASK-002) self-verified. Please approve to mark Done.”**
