@@ -32,7 +32,7 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 
 ### **Acceptance Criteria**
 
-✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`.
+✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`.\n
 ✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch).
 ✅ Nonexistent input path yields clear error message and non-zero exit.
 ✅ `go vet`, `golangci-lint run`, and `go test ./...` succeed locally.
