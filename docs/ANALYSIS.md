@@ -1,28 +1,15 @@
 # Analysis document
 
-We have the following documents in the repository:
-- The Go program that you can find [here](../cmd/main.go)
-- A README.md document that explains how to use the program
-- An example file to test and understand how the program processes different cases, located [here](../example.txt)
-- pkg/piscine which contains all the necessary functions originally taken from the private piscine-go repository.
+## Where to start
 
-## How to start:
+To get started head over to [README.md](../README.md). From there you can explore more guides that are necessary to continue.
 
-1) Clone the repository:
-```bash
-git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git
-cd go-reloaded
-```
-2) Make sure the .txt file you want to use as input is inside cmd/
-3) Run the program:
-```bash
-go run ./cmd/main.go <input.txt> <output.txt>
-```
 
 ## Rules & Use Case:
 
 Add two brackets immediately after the word or number you want to modify, using this format: ``` (<modifier>, <number>) ```.
 ```<number>``` is optional, for modifying more words.
+Format is absolute, adding or removing spaces will treat modifiers as normal text.
 
 - If inside the parentheses there is the word 'hex' then it will convert the immediately
 previous word to its decimal form (that word will always be a hexadecimal
