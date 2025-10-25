@@ -1,12 +1,12 @@
 # 🧩 **Text Formatter CLI (Go)**
-A lightweight, deterministic text-processing tool written in Go.
-It reads a text file, applies a series of linguistic and typographic transformations, and outputs a clean, standardized version according to well-defined rules.
+A lightweight, deterministic text-processing tool written in Go.<br>
+It reads a text file, applies a series of linguistic and typographic transformations, and outputs a clean, standardized version according to well-defined rules.<br>
 
 ---
 
 ## 📖 **Overview**
 This tool modifies text files by interpreting control markers and punctuation patterns.
-It supports automatic transformations such as:
+It supports automatic transformations such as:<br>
 
 | Marker / Rule             | Description                                      | Example                               |
 | ------------------------- | ------------------------------------------------ | ------------------------------------- |
@@ -19,7 +19,7 @@ It supports automatic transformations such as:
 | Apostrophe handling       | Ensures quotes sit flush around text             | `' great '` → `'great'`               |
 | Article correction        | Converts “a” → “an” before vowels or “h”         | `a apple` → `an apple`                |
 
-All rules are pure and deterministic, meaning the same input always produces the same output.
+All rules are pure and deterministic, meaning the same input always produces the same output.<br>
 
 ---
 
@@ -81,8 +81,8 @@ cat sample.txt | go run . --stdin --stdout
 | **internal/punct**  | Punctuation & apostrophe normalization                  |
 | **internal/rules**  | Grammar rules (e.g., “a” → “an”)                        |
 
-Each layer is pure, unit-tested, and uses only the Go standard library.
-For detailed design and data flow, see `docs/ARCHITECTURE.md`.
+Each layer is pure, unit-tested, and uses only the Go standard library.<br>
+For detailed design and data flow, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).<br>
 
 ---
 
@@ -105,7 +105,7 @@ go test ./... -coverprofile=coverage.out
 go tool cover -html=coverage.out
 ```
 
-See `docs/TESTING_GUIDE.md` for details on writing and running tests.
+See [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for details on writing and running tests.<br>
 
 ---
 
@@ -132,7 +132,7 @@ make run-sample
 - No external dependencies (Standard Library only)
 - `golangci-lint` for static analysis
 
-For setup details, see `docs/DEVELOPMENT.md`.
+For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ---
 
@@ -148,11 +148,11 @@ For setup details, see `docs/DEVELOPMENT.md`.
 ---
 
 ## 🧩 **Project Goals**
-✅ Deterministic transformations
-✅ Fully unit-tested and CI-verified
-✅ Modular, readable Go code
-✅ No third-party dependencies
-✅ Extensible rule pipeline
+✅ Deterministic transformations<br>
+✅ Fully unit-tested and CI-verified<br>
+✅ Modular, readable Go code<br>
+✅ No third-party dependencies<br>
+✅ Extensible rule pipeline<br>
 
 ---
 
@@ -165,13 +165,12 @@ For setup details, see `docs/DEVELOPMENT.md`.
 | [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md)       | Testing philosophy and instructions |
 | [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)           | Developer setup and Makefile usage  |
 | [docs/DESIGN_DECISIONS.md](docs/DESIGN_DECISIONS.md) | Rationale and trade-offs            |
-| [CHANGELOG.md](CHANGELOG.md)                         | Version history                     |
 
 ---
 
 ## ⚖️ **License**
 This project is distributed under the **MIT License**.
-See `LICENSE.md` for details.
+See [LICENSE](./LICENSE) for details.
 
 ---
 
