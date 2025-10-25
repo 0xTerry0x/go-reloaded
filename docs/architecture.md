@@ -9,19 +9,19 @@
 ## **1. High-Level Design**
 The tool is a stream-oriented text transformer built around a five-stage pipeline:
 
-**Input File**
-↓
-[1] **Lexer / Tokenizer**
-↓
-[2] **Parser (markers & structure)**
-↓
-[3] **Transformation Engine (hex/bin/up/low/cap)**
-↓
-[4] **Normalizers (punctuation, apostrophes, articles)**
-↓
-**Output String**
-↓
-**Output File**
+**Input File**<br>
+↓<br>
+[1] **Lexer / Tokenizer**<br>
+↓<br>
+[2] **Parser (markers & structure)**<br>
+↓<br>
+[3] **Transformation Engine (hex/bin/up/low/cap)**<br>
+↓<br>
+[4] **Normalizers (punctuation, apostrophes, articles)**<br>
+↓<br>
+**Output String**<br>
+↓<br>
+**Output File**<br>
 
 Each stage is designed as an independent, pure function that transforms an immutable data structure (`[]Token`, `[]Node`, or `string`) without side effects.  <br>
 The CLI layer (`cmd/textfmt`) only orchestrates I/O and error handling.
