@@ -1,175 +1,214 @@
-# Go Reloaded — System Architecture
+# **Architecture Overview**
 
-**Author:** Software Architecture Team  
-**Audience:** Developers, Reviewers, and AI Coding Assistants  
-**Purpose:** Explain the architectural structure, data flow, and reasoning behind the design choices for the *Go Reloaded* project.
-
----
-
-## 1. Overview
-
-The *Go Reloaded* program transforms text based on linguistic and formatting rules (defined in [analysis.md](./analysis.md)).  
-Its primary purpose is to process an input file, detect embedded modifiers (e.g., `(up, 2)`, `(hex)`), apply the corresponding transformations, and output the corrected result.
-
-The architecture follows a **Pipeline Pattern**, chosen for its modularity, simplicity, and concurrency potential.
+**Project:** Text Formatter (CLI Tool)  <br>
+**Language:** Go (Standard Library only)  <br>
+**Purpose:** A deterministic text-processing tool that applies rule-based transformations to an input text file and writes the modified output to a new file.  <br>
 
 ---
 
-## 2. Architectural Pattern — Pipeline
+## **1. High-Level Design**
+The tool is a stream-oriented text transformer built around a five-stage pipeline:
 
-### Why Pipeline?
-The project could have been implemented using a **Finite State Machine (FSM)**, but the **Pipeline** architecture provides:
+**Input File**
+↓
+[1] **Lexer / Tokenizer**
+↓
+[2] **Parser (markers & structure)**
+↓
+[3] **Transformation Engine (hex/bin/up/low/cap)**
+↓
+[4] **Normalizers (punctuation, apostrophes, articles)**
+↓
+**Output String**
+↓
+**Output File**
 
-- **Modularity:** Each transformation is a self-contained stage.  
-- **Composability:** Stages can be reordered or extended easily.   
-- **Ease of Testing:** Each stage can be unit tested independently.
+Each stage is designed as an independent, pure function that transforms an immutable data structure (`[]Token`, `[]Node`, or `string`) without side effects.  <br>
+The CLI layer (`cmd/textfmt`) only orchestrates I/O and error handling.
 
 ---
 
-## 3. High-Level Design
+## **2. Package Layout**
+| Path | Responsibility |
+| ---- | --------------- |
+| `cmd/textfmt/` | CLI entrypoint. Handles arguments, file I/O, error handling, and passes data into the internal pipeline. |
+| `internal/runner/` | Orchestration of the full processing pipeline. Responsible for sequencing transformations and returning the final text. |
+| `internal/text/` | Lexical and syntactic analysis — tokenization and parsing of markers, punctuation, and structural units. |
+| `internal/engine/` | Core transformation logic for `(hex)`, `(bin)`, `(up)`, `(low)`, `(cap[, n])`. Converts markers into text mutations. |
+| `internal/punct/` | Normalization of punctuation, ellipses, and apostrophes according to typographic rules. |
+| `internal/rules/` | Higher-level language rules, starting with article correction (`a` → `an`). Future rule sets may be added here. |
+| `testdata/` | Golden input/output fixtures for integration testing. |
+| `docs/` | Technical documentation (`ARCHITECTURE.md`, `QA_CHECKLIST.md`). |
+
+---
+
+## **3. Data Flow**
+
+### **3.1 Tokens and Nodes**
+The tool operates on a hierarchy of data structures:
 
 ```go
-Inpout File -> Reader -> Tokenizer -> Modifier Parser -> Transformers -> Formatter -> Output File
-```
+type TokenKind int
+const (
+    Word TokenKind = iota
+    Space
+    Punct
+    Apostrophe
+    Marker
+)
 
----
+type Token struct {
+    Kind  TokenKind
+    Value string
+}
 
-## 4. Key Components
+type MarkerType int
+const (
+    MarkerHex MarkerType = iota
+    MarkerBin
+    MarkerUp
+    MarkerLow
+    MarkerCap
+)
 
-### 4.1 Reader
-Reads the input file and streams its contents into the first stage of the pipeline using channels.
+type Node struct {
+    Kind   string        // "Word", "Punct", "Marker", etc.
+    Value  string
+    Marker *MarkerSpec   // optional
+}
 
-### 4.2 Tokenizer
-Splits text into tokens (words, punctuation, and modifier tags).  
-Each token becomes an independent message traveling through the pipeline.
-
-### 4.3 Modifier Parser
-Detects and structures transformation commands into `Modifier` objects:
-```go
-type Modifier struct {
-    Type   string
-    Count  int
-    Target []string
+type MarkerSpec struct {
+    Type  MarkerType
+    Count *int // nil = 1
 }
 ```
 
-### 4.4 Transformer Stages
-
-Each rule (e.g., `up`, `low`, `cap`, `hex`, `bin`, `a->an`) is its own transformation stage.
-Stages implement a common interface:
-```go
-type TransformStage interface {
-    Process(input <-chan string) <-chan string
-}
-```
-Transformers are composed in sequence:
-```css
-Tokenizer → ModifierParser → [UpStage → LowStage → CapStage → NumericStage → GrammarStage]
-```
-
-### 4.5 Formatter
-
-Ensures spacing, punctuation, and quote rules are correctly applied.
-Handles merging of tokens and punctuation consistency.
-
-### 4.6 Writer
-
-Consumes the final channel output and writes the processed text to a file.
+The lexer converts raw text into `[]Token`, the parser upgrades them to structured `[]Node`, and each subsequent stage transforms or normalizes those nodes.
 
 ---
 
-## 5. Data Flow
-**Step-by-Step Example**
+## **4. Processing Pipeline**
 
-**Input:**
-```go
-If I make you BREAKFAST IN BED (low, 3) just say thank you instead of:
-how (cap) did you get in my house (up, 2)?
-```
+### **Stage 1 — Lexing (`internal/text/lexer.go`)**
+- Splits text into Token units: words, spaces, punctuation, and control markers.
+- Recognizes grouped punctuation (`...`, `!?`) as single tokens.
+- Keeps all whitespace and quote marks explicit (to preserve structure).
 
-**Processing Steps:**
+### **Stage 2 — Parsing (`internal/text/parser.go`)**
+- Converts marker strings `(hex)`, `(up,2)`, etc. into Marker nodes.
+- Validates count arguments and normalizes spacing.
+- Non-marker parentheses remain untouched.
 
-1) **Reader:** streams raw lines from file.
+### **Stage 3 — Marker Transformations (`internal/engine/engine.go`)**
+- Consumes nodes and applies:
+  - Numeric conversions: `(hex)` and `(bin)`
+  - Case conversions: `(up)`, `(low)`, `(cap[, n])`
+- Mutations only affect preceding words (counted backwards).
+- Leaves punctuation and spacing untouched.
 
-2) **Tokenizer:** splits into tokens `[If] [I] [make] [you] ...`
+### **Stage 4 — Normalization (`internal/punct/punct.go`)**
+- Enforces punctuation spacing rules:
+  - `.,!?;:` stick to the word before, one space after.
+- Ellipses (`...`) and interrobangs (`!?`) preserved as grouped tokens.
+- Fixes apostrophe placement:
+  - `' awesome '` → `'awesome'`
+  - `' I am great '` → `'I am great'`
 
-3) **ModifierParser:** detects `(low, 3)`, `(cap)`, `(up, 2)`.
+### **Stage 5 — Grammar Rules (`internal/rules/article.go`)**
+- Applies language-level corrections:
+  - `"a apple"` → `"an apple"`
+  - `"A amazing idea"` → `"An amazing idea"`
+- Uses lookahead logic across word boundaries but respects punctuation as sentence delimiters.
 
-4) **Transformers:**
+### **Stage 6 — Reconstruction (`internal/runner/runner.go`)**
+- Joins normalized nodes into a final string, collapsing controlled spaces and punctuation.
 
-- `(low, 3)` -> lowercases 3 preceding words.
+---
 
-- `(cap)` -> capitalizes "how".
+## **5. CLI Layer**
 
-- `(up, 2)` -> uppercases "my house".
-
-5) **Formatter:** ensures punctuation and spacing rules.
-
-6) **Writer:** outputs final string.
-
-**Output:**
-```go
-If I make you breakfast in bed just say thank you instead of: How did you get in MY HOUSE?
+### **5.1 Command Interface**
+```bash
+$ textfmt <input> <output>
 ```
 
----
+**Flags:**
+| Flag | Description |
+| ---- | ------------ |
+| `-v, --version` | Print version and exit |
+| `-h, --help` | Show help |
+| `--stdin` | Read from standard input |
+| `--stdout` | Write to standard output |
 
-## 6. Error Handling Strategy
-
-- Each stage returns errors through a side-channel or logs them.
-
-- Invalid modifiers or malformed input do not stop processing — they are skipped with warnings.
-
-- The `main` package aggregates errors and outputs summary messages.
-
----
-
-## 7. Extensibility
-
-Future enhancements:
-
-- Add support for new modifiers (e.g., `(rev)` for reversing words).
-
-- Parallelize stages using buffered channels.
-
-- Support configurable pipelines defined via CLI flags.
+### **5.2 Behavior**
+- When both input/output paths are given → process file-to-file.
+- When `--stdin` or `--stdout` are set → process streams.
+- Errors return non-zero exit codes with descriptive messages.
 
 ---
 
-## 8. Architectural Rationale
-
-| Design Choice                  | Reason                                                        |
-| ------------------------------ | ------------------------------------------------------------- |
-| **Pipeline Architecture**      | Clear separation of concerns and easy testability.            |
-| **Functional Stages**          | Each transformation is isolated, enabling TDD at stage level. |
-| **Channels for Communication** | Natural concurrency mechanism in Go.                          |
-| **Composability**              | Simple to plug in new stages.                                 |
-
----
-
-## 9. Diagram — Transformation Flow
-
-```go
-Reader -> Tokenizer -> ModifierParser -> TransformStages -> Formatter -> Writer
-```
-Each arrow represents a channel communication step.
+## **6. Error Handling & Logging**
+- All public functions return `(value, error)`.
+- CLI logs concise user-facing messages (no stack traces).
+- Internal errors wrap context:
+  ```go
+  fmt.Errorf("parse marker %q at pos %d: %w", s, i, err)
+  ```
 
 ---
 
-## 10. Testing Strategy Alignment
-
-- Unit tests for each stage (pure functions).
-
-- Integration tests for the full pipeline (end-to-end).
-
-- Golden test verification using sample inputs from [analysis.md](./analysis.md).
+## **7. Testing & QA Strategy**
+| Type | Package | Description |
+| ---- | -------- | ----------- |
+| **Unit Tests** | `internal/text`, `internal/engine`, `internal/punct`, `internal/rules` | Table-driven tests covering edge cases and transformation logic. |
+| **Integration Tests** | `integration/` | Golden tests verifying full pipeline output equals expected files in `testdata/`. |
+| **Lint & Vet** | `.golangci.yml` | Static checks for style, vetting, and potential panics. |
+| **CI** | `.github/workflows/ci.yml` | Build + lint + test + race detector on PR. |
 
 ---
 
-## 11. Conclusion
+## **8. Design Principles**
+**Purity & Determinism**
+Each stage is functional — no shared state, no global mutation. Same input always yields same output.
 
-The *Go Reloaded* architecture embraces the **Pipeline Pattern** for clarity, extensibility, and maintainability.
-It aligns perfectly with the TDD-driven incremental tasks defined in [development_plan.md](./development_plan.md)
+**Composability**
+New rules (e.g., pluralization, tense normalization) can be added by extending the pipeline with new stage functions.
+
+**Test-Driven Development**
+Each transformation has isolated, testable logic verified by golden outputs.
+
+**Simplicity Over Performance**
+The tool favors readability and correctness. Optimizations can be profiled later if needed.
+
+**Zero External Dependencies**
+Only Go’s standard library is used to ensure portability and deterministic builds.
+
+---
+
+## **9. Extensibility Roadmap**
+| Future Enhancement | Description |
+| ------------------ | ----------- |
+| Pluggable Rules | Load transformation rules dynamically from JSON/YAML. |
+| Streaming Mode | Process text streams without full buffering. |
+| Parallelism | Split text into paragraphs for parallel transformation. |
+| Language Support | Extend `(cap)` to support locale-specific casing. |
+| Custom Markers | Allow user-defined markers (e.g., `(rev)` for reverse word order). |
+
+---
+
+## **10. Summary**
+The **Text Formatter** tool implements a clear separation of concerns:
+- Lexing & Parsing isolate recognition.
+- Transformation handles meaning.
+- Normalization & Grammar enforce presentation.
+- Runner binds everything into a cohesive CLI.
+
+This modular approach ensures:
+- Predictable behavior
+- Strong test coverage
+- Ease of extension
+- Compliance with Go best practices
+
 
 
 *Last Updated: October 2025*
