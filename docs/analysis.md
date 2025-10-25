@@ -156,8 +156,8 @@ more words than the ones that actually exist.
 
 ```i love typescript (up, 0)```
 
-No change should be made.
+No change should be made and the modifier should be removed.
 
 ```i love javascript (up, -1) a lot```
 
-Here, the next word (a) should be modified instead of the previous one.
+No change should be made and the modifier should not be removed.
