@@ -26,13 +26,13 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 - `Makefile` targets: `build`, `run`, `test`, `lint`, `fmt`.
 - `.golangci.yml` enabling standard static checks (`govet`, `errcheck`, `ineffassign`, `revive`).
 - `README.md` with usage examples mirroring the spec.
-- `docs/ARCHITECTURE.md` (short): layering and data flow (`CLI → runner → pipeline`).
+- [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md) (short): layering and data flow (`CLI → runner → pipeline`).
 
 ---
 
 ### **Acceptance Criteria**
 
-✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`.\n
+✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`.
 ✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch).
 ✅ Nonexistent input path yields clear error message and non-zero exit.
 ✅ `go vet`, `golangci-lint run`, and `go test ./...` succeed locally.
