@@ -10,14 +10,14 @@
 
 ---
 
-### **Mission Profile**
+## **Mission Profile**
 Implement a tokenizer that produces stable tokens for words, whitespace, punctuation, and control markers.  <br>
 Implement a lightweight parser that recognizes (hex), (bin), (up), (low), (cap) and their counted variants (op, N) with optional spaces after commas.  <br>
 Preserve original text fidelity (positions) to support precise rewrites.  <br>
 
 ---
 
-### **Deliverables**
+## **Deliverables**
 - `internal/text/token.go` (types: `TokenKind`, `Token{Kind, Value}`).
 - `internal/text/lexer.go` (public `Lex(input string) ([]Token, error)`).
 - `internal/text/parser.go` (public `Parse(tokens []Token) ([]Node, error)`), with `Node` covering:
@@ -31,7 +31,7 @@ Preserve original text fidelity (positions) to support precise rewrites.  <br>
 
 ---
 
-### **Acceptance Criteria**
+## **Acceptance Criteria**
 ✅ Lex returns correct sequence for examples in spec (words, markers, punctuations, spaces).  <br>
 ✅ `(up,2)`, `(low, 3)`, `(cap,10)` correctly parsed with `Count`.  <br>
 ✅ `...` and `!?` are single punctuation tokens; other `.,!?;:` are singular.  <br>
@@ -39,18 +39,18 @@ Preserve original text fidelity (positions) to support precise rewrites.  <br>
 
 ---
 
-### **Verification Plan**
+## **Verification Plan**
 - **unit:** exhaustive table-driven tests for edge cases (multiple spaces, tabs/newlines, mixed markers).
 - **property:** fuzz test ensuring `strings.Join(Print(Lex(s)))` round-trips token values.
 
 ---
 
-### **References**
+## **References**
 - Architect’s spec and examples (input/output).
 
 ---
 
-### **Notes for Codex Operator**
+## **Notes for Codex Operator**
 - Keep lexer deterministic; no backtracking.
 - Avoid regex for high-traffic loops; use state machine for speed. Regex okay for marker matching if well-scoped.
 
