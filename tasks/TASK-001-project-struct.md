@@ -1,18 +1,18 @@
 # CLI Scaffold & Project Structure
 
-**ID:** TASK-001
-**Owner:** Go Lead
-**Size:** S
-**Confidence:** High
-**Hard Dependencies:** —
-**Soft Dependencies:** —
-**Related Blueprint Pillars:** Code quality, DX, testability
+**ID:** TASK-001<br>
+**Owner:** Go Lead<br>
+**Size:** S<br>
+**Confidence:** High<br>
+**Hard Dependencies:** —<br>
+**Soft Dependencies:** —<br>
+**Related Blueprint Pillars:** Code quality, DX, testability<br>
 
 ---
 
 ### **Mission Profile**
 Initialize a clean Go module for the text-formatter tool with a simple, discoverable CLI.
-Provide robust argument parsing, helpful usage, deterministic I/O (read input file, write output file), and clear exit codes.
+Provide robust argument parsing, helpful usage, deterministic I/O (read input file, write output file), and clear exit codes.<br>
 Establish repo standards: linters, make targets, directory layout, and baseline docs.
 
 ---
@@ -32,9 +32,9 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 
 ### **Acceptance Criteria**
 ✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`. <br>
-✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch).
-✅ Nonexistent input path yields clear error message and non-zero exit.
-✅ `go vet`, `golangci-lint run`, and `go test ./...` succeed locally.
+✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch). <br>
+✅ Nonexistent input path yields clear error message and non-zero exit. <br>
+✅ `go vet`, `golangci-lint run`, and `go test ./...` succeed locally. <br>
 
 ---
 
