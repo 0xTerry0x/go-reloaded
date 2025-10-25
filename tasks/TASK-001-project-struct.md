@@ -10,14 +10,14 @@
 
 ---
 
-### **Mission Profile**
+## **Mission Profile**
 Initialize a clean Go module for the text-formatter tool with a simple, discoverable CLI.
 Provide robust argument parsing, helpful usage, deterministic I/O (read input file, write output file), and clear exit codes.<br>
 Establish repo standards: linters, make targets, directory layout, and baseline docs.
 
 ---
 
-### **Deliverables**
+## **Deliverables**
 - `go.mod` (module name `github.com/our-org/textfmt`).
 - `cmd/textfmt/main.go` with:
   - **Usage:** `textfmt <input> <output>`
@@ -30,7 +30,7 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 
 ---
 
-### **Acceptance Criteria**
+## **Acceptance Criteria**
 ✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`. <br>
 ✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch). <br>
 ✅ Nonexistent input path yields clear error message and non-zero exit. <br>
@@ -38,26 +38,26 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 
 ---
 
-### **Verification Plan**
+## **Verification Plan**
 - **unit:** table-driven tests for argument parsing and error paths in `cmd/textfmt`.
 - **integration:** script invoking CLI with fixture files (no-op pass-through for now) and asserting exit codes.
 - **lint:** `golangci-lint run` must pass in CI.
 
 ---
 
-### **References**
+## **References**
 - Project specification provided by architect (this conversation).
 - Go CLI conventions (`flag` package), standard error handling.
 
 ---
 
-### **Notes for Codex Operator**
+## **Notes for Codex Operator**
 - Keep `internal/runner` decoupled; downstream tasks will plug the pipeline there.
 - Prefer small functions, clear errors (`fmt.Errorf("read %s: %w", path, err)`).
 
 ---
 
-**PROMPT — FULL 4-STEP FLOW (execute sequentially)**
+## PROMPT — FULL 4-STEP FLOW (execute sequentially)**
 
 You are GPT-Codex executing **CLI Scaffold & Project Structure (TASK-001)**.
 
