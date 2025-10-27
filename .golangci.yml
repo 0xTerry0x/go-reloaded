@@ -1,0 +1,28 @@
+version: 2
+
+run:
+  timeout: 5m
+  tests: false
+
+linters:
+  enable:
+    - govet
+    - revive
+    - errcheck
+    - staticcheck
+
+
+linters-settings:
+  revive:
+    severity: warning
+    rules:
+      - name: unused-parameter
+        severity: error
+      - name: exported
+        arguments:
+          - checkPrivateReceivers
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
