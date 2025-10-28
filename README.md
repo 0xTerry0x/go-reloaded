@@ -112,7 +112,7 @@ See [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for details on writing and ru
 ## 🧰 **Development**
 Clone and bootstrap:
 ```bash
-git clone https://github.com/your-org/textfmt.git
+git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git
 cd textfmt
 make build
 ```
