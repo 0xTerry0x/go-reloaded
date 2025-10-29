@@ -1,10 +1,10 @@
-# 🧩 **Text Formatter CLI (Go)**
+#  **Text Formatter CLI (Go)**
 A lightweight, deterministic text-processing tool written in Go.<br>
 It reads a text file, applies a series of linguistic and typographic transformations, and outputs a clean, standardized version according to well-defined rules.<br>
 
 ---
 
-## 📖 **Overview**
+##  **Overview**
 This tool modifies text files by interpreting control markers and punctuation patterns.
 It supports automatic transformations such as:<br>
 
@@ -23,7 +23,7 @@ All rules are pure and deterministic, meaning the same input always produces the
 
 ---
 
-## 🚀 **Usage**
+##  **Usage**
 
 ### **CLI**
 ```bash
@@ -56,7 +56,7 @@ It was the best of times, it was the worst of TIMES, it was the age of wisdom, I
 
 ---
 
-## ⚙️ **Command Options**
+##  **Command Options**
 | Flag              | Description            |
 | ----------------- | ---------------------- |
 | `-h`, `--help`    | Display usage help     |
@@ -71,7 +71,7 @@ cat sample.txt | go run . --stdin --stdout
 
 ---
 
-## 🧱 **Architecture**
+## **Architecture**
 | Layer               | Description                                             |
 | ------------------- | ------------------------------------------------------- |
 | **cmd/textfmt**     | CLI entrypoint: argument parsing, file I/O              |
@@ -86,7 +86,7 @@ For detailed design and data flow, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.
 
 ---
 
-## 🧪 **Testing**
+## **Testing**
 Run all tests (unit + integration):
 ```bash
 make test
@@ -109,7 +109,7 @@ See [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for details on writing and ru
 
 ---
 
-## 🧰 **Development**
+## **Development**
 Clone and bootstrap:
 ```bash
 git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git
@@ -136,7 +136,7 @@ For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ---
 
-## 📋 **Example Rule Outputs**
+## **Example Rule Outputs**
 | Input                              | Output                           |
 | ---------------------------------- | -------------------------------- |
 | `Simply add 42 (hex) and 10 (bin)` | `Simply add 66 and 2`            |
@@ -147,7 +147,7 @@ For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ---
 
-## 🧩 **Project Goals**
+## **Project Goals**
 ✅ Deterministic transformations<br>
 ✅ Fully unit-tested and CI-verified<br>
 ✅ Modular, readable Go code<br>
@@ -156,7 +156,7 @@ For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ---
 
-## 🧭 **Documentation Index**
+## **Documentation Index**
 | File                                                 | Description                         |
 | ---------------------------------------------------- | ----------------------------------- |
 | [README.md](README.md)                               | Overview & usage                    |
@@ -168,12 +168,12 @@ For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ---
 
-## ⚖️ **License**
+## **License**
 This project is distributed under the **MIT License**.
 See [LICENSE](./LICENSE) for details.
 
 ---
 
-## 🛑 **Project Status**
+## **Project Status**
 This project is a **final, static deliverable.**
 No further development or external contributions are planned.
