@@ -1,4 +1,4 @@
-# 🤖 **AGENTS.md**
+# **AGENTS.md**
 
 > If any referenced file, directory, or configuration is missing, the agent must automatically create it based on the descriptions in this document before proceeding.
 
@@ -39,7 +39,7 @@ At time of writing, the main OpenAI repo has **88 AGENTS.md** files.
 
 ---
 
-## **🧠 Pipeline Overview**
+## ** Pipeline Overview**
 ```
 Lex → Parse → Transform (hex/bin/up/low/cap)
    → Normalize (punctuation, apostrophes)
@@ -62,7 +62,7 @@ go run . <input.txt> <output.txt>
 
 ---
 
-## **2. ⚙️ Build and Test Commands**
+## **2. Build and Test Commands**
 
 ### **Local Build**
 ```bash
@@ -101,7 +101,7 @@ make ci
 
 ---
 
-## **3. 🧱 Code Style Guidelines**
+## **3.  Code Style Guidelines**
 - **Imports:** Group standard → internal → project packages.
 - **Formatting:** Run `go fmt ./...` or `make fmt`.
 - **Naming:** Packages are lowercase, no underscores.
@@ -123,7 +123,7 @@ docs/                  → Project documentation
 
 ---
 
-## **4. 🧪 Testing Instructions**
+## **4.  Testing Instructions**
 
 ### **Test Types**
 | Type        | Purpose                                   | Location                          |
@@ -180,7 +180,7 @@ diff tmp.txt tmp2.txt
 
 ---
 
-## **6. 🧠 Commit and PR Guidelines**
+## **6. Commit and PR Guidelines**
 Even if this project is final, commit rules are preserved for reproducibility.  <br>
 
 **Commit Message Format:**
@@ -208,7 +208,7 @@ fix: correct spacing for ellipsis and exclamation sequences
 
 ---
 
-## **7. 🧩 Deployment / Distribution Steps**
+## **7. Deployment / Distribution Steps**
 ### **Local Binary:**
 ```bash
 make build
@@ -231,7 +231,7 @@ Running `make build` must always produce the same binary checksum for identical 
 
 ---
 
-## **8. ⚙️ Large or Nested Repos**
+## **8. Large or Nested Repos**
 If this project ever becomes a monorepo (e.g., includes multiple text utilities or services),
 add nested `AGENTS.md` files under each subproject such as `/tools/formatter/AGENTS.md` or `/cli/AGENTS.md`.
 
@@ -246,7 +246,7 @@ For this project, a single root-level `AGENTS.md` is sufficient.  <br>
 
 ---
 
-## **9. 🧭 Execution Flow for Agents (Autonomous Build)**
+## **9. Execution Flow for Agents (Autonomous Build)**
 
 Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-phase pipeline:**  <br>
 
@@ -275,7 +275,7 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 
 ---
 
-## **10. 📚 Reference Documents**
+## **10. Reference Documents**
 | File                       | Description                     |
 | -------------------------- | ------------------------------- |
 | `README.md`                | Overview, usage, and examples   |
@@ -289,7 +289,7 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 
 ---
 
-## **11. 🧾 Project Status**
+## **11. Project Status**
 **Stage:** Final  <br>
 **Maintenance Plan:** None (no further feature work)  <br>
 **Contributors:** Fixed internal team only  <br>
@@ -298,7 +298,7 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 
 ---
 
-## **12. 🧱 Agent Summary**
+## **12. Agent Summary**
 | Role              | Responsibility                          |
 | ----------------- | --------------------------------------- |
 | Codex / IDE Agent | Execute full pipeline per section 9 & Run `docs/QA_CHECKLIST.md` validation |
