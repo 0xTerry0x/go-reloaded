@@ -49,6 +49,11 @@ func TestRunAppliesMarkers(t *testing.T) {
 			want:  "MATH ( )",
 		},
 		{
+			name:  "marker following blank line keeps newline",
+			input: "state-of-the-art (up)\n\n(up)start here",
+			want:  "state-of-the-ART\n\nstart here",
+		},
+		{
 			name:  "article correction with punctuation",
 			input: "There is ... a amazing rock!",
 			want:  "There is... an amazing rock!",

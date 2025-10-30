@@ -52,7 +52,9 @@ func Reconstruct(nodes []text.Node) string {
 	for _, node := range nodes {
 		if node.Kind == text.NodeMarker {
 			if len(filtered) > 0 && filtered[len(filtered)-1].Kind == text.NodeSpace {
-				filtered = filtered[:len(filtered)-1]
+				if !strings.ContainsAny(filtered[len(filtered)-1].Value, "\n\r") {
+					filtered = filtered[:len(filtered)-1]
+				}
 			}
 			continue
 		}
