@@ -17,12 +17,15 @@ func Normalize(nodes []text.Node) []text.Node {
 
 func normalizePunctuation(nodes []text.Node) []text.Node {
 	out := make([]text.Node, 0, len(nodes))
+	parenDepth := 0
 	for i := 0; i < len(nodes); i++ {
 		node := nodes[i]
+		depth := parenDepth
+
 		if node.Kind != text.NodePunct {
 			if node.Kind == text.NodeSpace {
 				next := nextNonMarker(nodes, i+1)
-				if next != -1 && nodes[next].Kind == text.NodePunct && tightLeft(nodes[next].Value) {
+				if next != -1 && nodes[next].Kind == text.NodePunct && tightLeft(nodes[next].Value) && depth == 0 {
 					continue
 				}
 			}
@@ -30,7 +33,7 @@ func normalizePunctuation(nodes []text.Node) []text.Node {
 			continue
 		}
 
-		if len(out) > 0 && out[len(out)-1].Kind == text.NodeSpace && tightLeft(node.Value) {
+		if len(out) > 0 && out[len(out)-1].Kind == text.NodeSpace && tightLeft(node.Value) && depth == 0 {
 			out = out[:len(out)-1]
 		}
 		out = append(out, node)
@@ -49,7 +52,7 @@ func normalizePunctuation(nodes []text.Node) []text.Node {
 		}
 
 		spaceValue := spaceBuilder.String()
-		if needsSpaceAfter(node.Value) {
+		if depth == 0 && needsSpaceAfter(node.Value) {
 			if nextIdx < len(nodes) {
 				next := nodes[nextIdx]
 				switch next.Kind {
@@ -65,11 +68,19 @@ func normalizePunctuation(nodes []text.Node) []text.Node {
 			} else if spaceConsumed && containsLineBreak(spaceValue) {
 				out = append(out, text.Node{Kind: text.NodeSpace, Value: spaceValue})
 			}
-		} else if spaceConsumed && !tightSpacing(node.Value) {
+		} else if spaceConsumed && (!tightSpacing(node.Value) || depth > 0) {
 			out = append(out, text.Node{Kind: text.NodeSpace, Value: spaceValue})
 		}
 
 		i = nextIdx - 1
+
+		if node.Value == "(" {
+			parenDepth++
+		} else if node.Value == ")" {
+			if parenDepth > 0 {
+				parenDepth--
+			}
+		}
 	}
 
 	return out
