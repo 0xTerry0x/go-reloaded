@@ -1,0 +1,1 @@
+Report : 2F (hex) + 101 (bin) units processed ; 1A (hex) remain pending . Please CHECK (low) before shipment !
