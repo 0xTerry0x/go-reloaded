@@ -1,0 +1,29 @@
+Hello world(up, 3)
+
+This is unbelievable (up)(low)
+
+Wait (up) !?
+
+These results are shocking (up, 2)(cap, 3)
+
+' wow ! ' she said ... unbelievable (up) !!
+
+Hello world(up,3)
+
+Good morning ladies(cap) and(up, 3) gentlemen
+
+Good morning (up, -1)
+
+Good morning (up, 0)
+
+Good morning ( up,1 )
+
+Good morning { (up)
+
+state-of-the-art (up)
+
+(up)start here
+
+it's (up) nice
+
+math ( (up) )

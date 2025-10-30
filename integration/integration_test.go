@@ -12,7 +12,7 @@ import (
 func TestGoldenFixtures(t *testing.T) {
 	t.Parallel()
 
-	samples := []string{"sample1", "sample2", "sample3", "sample4"}
+	samples := []string{"sample1", "sample2", "sample3", "sample4", "tricky_cases"}
 
 	for _, name := range samples {
 		name := name
