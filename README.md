@@ -109,28 +109,42 @@ See [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) for details on writing and ru
 
 ---
 
-## **Development**
-Clone and bootstrap:
+## Development
+### Clone & bootstrap
 ```bash
 git clone https://platform.zone01.gr/git/lpapanthy/go-reloaded.git
-cd textfmt
-make build
+cd go-reloaded
+make setup        # go mod tidy
+make fmt          # optional: keep sources formatted
 ```
 
-Lint, format, and test:
-```bash
-make fmt lint test
-```
+### Tooling
 
-Run sample:
-```bash
-make run-sample
-```
-
-**Development environment expectations:**
 - Go ≥ 1.21
-- No external dependencies (Standard Library only)
-- `golangci-lint` for static analysis
+- `golangci-lint` on your PATH (for make lint / CI)
+- No third-party Go modules (standard library only)
+
+### Quality checks
+
+```bash
+make lint         # golangci-lint run
+make test         # go test ./... -race
+make coverage     # creates coverage.out
+make build        # builds bin/textfmt
+# or run the full pipeline in one go:
+make ci
+```
+### Run the CLI
+```bash
+go run ./cmd/textfmt testdata/sample1_in.txt result.txt
+diff result.txt testdata/sample1_out.txt
+# streaming variant:
+cat testdata/sample1_in.txt | go run ./cmd/textfmt --stdin --stdout
+```
+### Cleanup
+```bash
+make clean        # removes bin/ and coverage.out
+```
 
 For setup details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
