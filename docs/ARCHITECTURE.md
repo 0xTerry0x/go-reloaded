@@ -17,7 +17,7 @@ The tool is a stream-oriented text transformer built around a five-stage pipelin
 ↓<br>
 [3] **Transformation Engine (hex/bin/up/low/cap)**<br>
 ↓<br>
-[4] **Normalizers (punctuation, apostrophes, articles)**<br>
+[4] **Normalizers (punctuation, apostrophes)**<br>
 ↓<br>
 **Output String**<br>
 ↓<br>
@@ -107,9 +107,9 @@ The lexer converts raw text into `[]Token`, the parser upgrades them to structur
 - Leaves punctuation and spacing untouched.
 
 ### **Stage 4 — Normalization (`internal/punct/punct.go`)**
-- Enforces punctuation spacing rules:
+- Enforces punctuation spacing rules outside parentheses:
   - `.,!?;:` stick to the word before, one space after.
-- Ellipses (`...`) and interrobangs (`!?`) preserved as grouped tokens.
+- Preserves grouped punctuation (`...`, `!?`) and respects nested parentheses spacing.
 - Fixes apostrophe placement:
   - `' awesome '` → `'awesome'`
   - `' I am great '` → `'I am great'`
