@@ -24,7 +24,7 @@ The approach ensures maintainability, correctness, and continuous learning throu
 
 - [analysis.md](analysis.md) — Functional rules, examples, and transformation logic.  
 - [README.md](../README.md) — Usage instructions and execution commands.  
-- [example.txt](../examples/example.txt) — Input sample for validation and testing.  
+- [`testdata/`](../testdata) — Golden inputs/outputs used by the integration suite.  
 
 ---
 
@@ -44,159 +44,6 @@ We will follow a **TDD + Agile incremental process**:
 Below is the ordered list of development tasks.
 
 ---
-
-### Task 1 — Project & Test Setup
-
-**Functionality:**  
-Ensure the Go module builds correctly and test infrastructure works.
-
-**TDD Step:**  
-Write a placeholder test (`main_test.go`) that verifies the program runs without errors.
-
-**Implementation Goal:**  
-Initialize Go module, basic imports, and testing structure (`go test ./...`).
-
-**Validation:**  
-All tests compile and pass with `go test`.
-
-*Reference:* [Go testing package](https://pkg.go.dev/testing)
-
----
-
-### Task 2 — File I/O Handling
-
-**Functionality:**  
-Read input text from file and write processed output to another file.
-
-**TDD Step:**  
-Mock read/write operations using `t.TempDir()` and verify content integrity.
-
-**Implementation Goal:**  
-Implement:
-```go
-ReadInputFile(path string) (string, error)
-WriteOutputFile(path string, content string) error
-```
-**Validation:**
-Reading/writing preserves text exactly as expected.
-
-*Reference:* [os and ioutil packages](https://pkg.go.dev/os)
-
----
-
-### Task 3 — Modifier Detection
-
-**Functionality:**
-Identify transformation commands such as (up, 2), (hex), (low).
-
-**TDD Step:**
-Test parsing results for various modifier formats.
-
-**Implementation Goal:**
-Create:
-```go
-type Modifier struct { Type string; Count int; Position int }
-func DetectModifiers(text string) []Modifier
-```
-
-**Validation:**
-Modifiers correctly parsed even in malformed or mixed cases.
-
-*Reference:* [regexp package](https://pkg.go.dev/regexp)
-
----
-
-### Task 4 — Uppercase Transformation (up)
-
-**Functionality:**
-Transform one or multiple preceding words to uppercase.
-
-**TDD Step:**
-"go hard or go home (up, 2)" → "go hard or GO HOME"
-
-**Implementation Goal:**
-Implement: 
-```go
-ApplyUppercase(words []string, count int, pos int) []string.
-```
-
-**Validation:**
-Supports (up), (up, N), (up, 0) gracefully.
-
----
-
-### Task 5 — Lowercase Transformation (low)
-
-**Functionality:** 
-Convert one or multiple preceding words to lowercase.
-
-**TDD Step:** 
-"BREAKFAST IN BED (low, 3)" → "breakfast in bed"
-
-**Implementation Goal:** 
-Implement:
-```go
-ApplyLowercase(words []string, count int, pos int) []string.
-```
-
-**Validation:** 
-Supports (low), (low, N), (low, 0) gracefully.
-
----
-
-### Task 6 — Capitalize Transformation (cap)
-
-**Functionality:** 
-Capitalize the first letter of one or multiple preceding words.
-
-**TDD Step:** 
-"harold wilson (cap, 2)" → "Harold Wilson"
-
-**Implementation Goal:** 
-Implement:
-```go
-ApplyCapitalize(words []string, count int, pos int) []string.
-```
-
-**Validation:** 
-Handles mixed-case words properly.
-
-*Reference:* [strings.ToUpper / ToLower / Title](https://pkg.go.dev/strings)
-
----
-
-### Task 7 — Hexadecimal Conversion (hex)
-
-**Functionality:** 
-Convert a hexadecimal number to its decimal representation.
-
-**TDD Step:** 
-"1E (hex)" → "30"
-
-**Implementation Goal:** 
-Implement:
-```go
-ConvertHexToDec(word string) (string, error)
-```
-
-**Validation:** 
-Handles both lowercase and uppercase hex input.
-
----
-
-### Task 8 — Binary Conversion (bin)
-
-**Functionality:** 
-Convert a binary number to its decimal representation.
-
-**TDD Step:** 
-"101 (bin)" → "5"
-
-**Implementation Goal:** 
-Implement:
-```go
-ConvertBinToDec(word string) (string, error)
-```
 
 **Validation:** 
 Invalid binary values ignored safely.
@@ -222,123 +69,54 @@ Handles uppercase/lowercase and punctuation correctly.
 
 ---
 
-### Task 10 — Punctuation Spacing
-
-**Functionality:** 
-Normalize spaces around punctuation.
-
-**TDD Step:**
-"sad ,because" → "sad, because"
-"das . And" → "das. And"
-
-**Implementation Goal:** 
-Implement:
-```go
-FixPunctuationSpacing(text string)
-```
-
-**Validation:**
-All punctuation (.,!?;:) properly spaced; supports "..." and "!?"
-
-*Reference:* [unicode and strings manipulation](https://pkg.go.dev/unicode)
+### Task 1 — CLI Scaffold (`cmd/textfmt`)
+**Goal:** Build the command-line entrypoint that accepts file paths or streams and returns appropriate exit codes.  
+**TDD:** Table-driven parser tests in `cmd/textfmt/main_test.go`.  
+**Done When:** `go run ./cmd/textfmt --help` works and parsing tests cover missing/extra arguments.
 
 ---
 
-### Task 11 — Single Quote Formatting
-
-**Functionality:** 
-Ensure single quotes correctly wrap text.
-
-**TDD Step:**
-" ' awesome '" → "'awesome'"
-" ' I am here '" → "'I am here'"
-
-**Implementation Goal:** Implement:
-```go
-FixQuotes(text string)
-```
-
-**Validation:**
-Handles single and multi-word cases.
+### Task 2 — Lexing & Parsing (`internal/text`)
+**Goal:** Convert raw text into tokens and structured nodes with strict marker recognition.  
+**TDD:** Extend `lexer_test.go` and `parser_test.go` with grouped punctuation, contractions, and invalid-marker cases.  
+**Done When:** `go test ./internal/text` passes with high coverage.
 
 ---
 
-### Task 12 — Transformation Pipeline Integration
-
-**Functionality:**
-Chain all transformations in a deterministic order.
-
-**TDD Step:**
-Golden test:
-```go
-If I make you BREAKFAST IN BED (low, 3) just say thank you instead of:
-how (cap) did you get in my house (up, 2)?
-```
-
-**Implementation Goal:**
-Implement main processing pipeline combining all transformations.
-
-**Validation:**
-All golden test cases match expected outputs in analysis.md.
-
-*Reference:* [Go pipelines and slice operations](https://go.dev/doc/effective_go#pipelines)
+### Task 3 — Marker Engine (`internal/engine`)
+**Goal:** Apply `(hex)`, `(bin)`, `(up|low|cap[, n])` mutations to the appropriate preceding words.  
+**TDD:** Table tests in `engine_test.go` covering conversions, negative counts, and multi-word operations.  
+**Done When:** Only the intended words change and untouched text remains intact.
 
 ---
 
-### Task 13 — CLI Integration
-
-**Functionality:** 
-Integrate file I/O and transformation pipeline into the main entry point.
-
-**TDD Step:** 
-Simulate CLI execution using os.Args.
-
-**Implementation Goal:** 
-Implement main.go orchestration.
-
-**Validation:** 
-End-to-end tests create correct output file.
+### Task 4 — Punctuation & Apostrophes (`internal/punct`)
+**Goal:** Normalise punctuation spacing, keep ellipses/interrobangs grouped, and tighten apostrophes without disturbing parenthetical spacing.  
+**TDD:** Expand `punct_test.go` for commas, ellipses, quotes, and tricky cases like nested parentheses.  
+**Done When:** QA punctuation examples match spec outputs.
 
 ---
 
-### Task 14 — Error Handling & Edge Cases
-
-**Functionality:** 
-Ensure graceful handling of malformed modifiers, empty inputs, or file errors.
-
-**TDD Step:**
-Cases like:
-(up, -1) handled gracefully.
-Missing file returns clear error.
-
-**Implementation Goal:** 
-Add validation and structured error logging.
-
-**Validation:** 
-No panics; logs descriptive errors.
-
-*Reference:* [error handling in Go](https://go.dev/doc/effective_go#errors)
+### Task 5 — Article Rules (`internal/rules`)
+**Goal:** Implement `FixArticles` to replace `a` with `an` before vowels or silent `h`, skipping punctuation boundaries.  
+**TDD:** Add cases to `article_test.go` for uppercase, apostrophe-adjacent words, and non-matches.  
+**Done When:** Grammar adjustments occur only where expected.
 
 ---
 
-### Task 15 — Final Validation & Refactor
-
-**Functionality:** 
-Ensure full test coverage and maintainable code.
-
-**TDD Step:** 
-Run coverage: go test -cover ./...
-
-**Implementation Goal:** 
-Refactor repetitive logic, finalize comments, verify pipeline order.
-
-**Validation:** 
-≥90% coverage; all tests pass cleanly.
-
-*Reference:* [Go code review comments](https://github.com/golang/go/wiki/CodeReviewComments)
+### Task 6 — Runner Orchestration (`internal/runner`)
+**Goal:** Chain lexing → parsing → engine → punctuation → grammar → reconstruction with newline-safe behaviour.  
+**TDD:** Integration-style tests in `runner_test.go` for contractions, parentheses, blank-line preservation, and article corrections.  
+**Done When:** `runner.Run` returns fully formatted text for all cases.
 
 ---
 
+### Task 7 — Golden Fixtures & QA (`integration`, `testdata`)
+**Goal:** Capture end-to-end behaviour using `sample*_*.txt` and `tricky_cases_*.txt` fixtures.  
+**TDD:** `integration/integration_test.go` iterates fixtures and compares output byte-for-byte (supports `UPDATE_GOLDEN`).  
+**Done When:** `go test ./integration -v` passes and README/QA docs reference the fixtures.
+
+---
 ## 5. Learning & Meta-Prompting Notes
 
 This plan is intentionally **AI-assisted** and **educational.**

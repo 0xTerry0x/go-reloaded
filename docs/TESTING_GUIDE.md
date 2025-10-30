@@ -40,7 +40,9 @@ All tests are written using Go’s standard testing package — no external test
     ├── sample3_in.txt
     ├── sample3_out.txt
     ├── sample4_in.txt
-    └── sample4_out.txt
+    ├── sample4_out.txt
+    ├── tricky_cases_in.txt
+    └── tricky_cases_out.txt
 ```
 
 Each `_test.go` file contains **table-driven test cases** to encourage clarity, reproducibility, and easy expansion.  <br>
@@ -111,7 +113,7 @@ These verify the entire pipeline from raw input → final formatted text.  <br>
 **Example:**
 ```go
 func TestFullPipeline(t *testing.T) {
-    files := []string{"sample1", "sample2", "sample3", "sample4"}
+    files := []string{"sample1", "sample2", "sample3", "sample4", "tricky_cases"}
     for _, name := range files {
         inPath := fmt.Sprintf("testdata/%s_in.txt", name)
         outPath := fmt.Sprintf("testdata/%s_out.txt", name)
@@ -137,6 +139,7 @@ All integration tests must pass **byte-for-byte**.  <br>
 
 ### 📸 **4.3 Golden Tests**
 Golden tests compare generated output to pre-approved reference files under `/testdata`.  <br>
+Current fixtures: `sample1`–`sample4` (audit scenarios) and `tricky_cases` (edge spacing/marker regressions).  <br>
 
 **Regenerating Goldens:**  <br>
 If a legitimate rule change alters output:
