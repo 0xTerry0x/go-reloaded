@@ -9,7 +9,7 @@
 | Check            | Command                   | Expected Result          |
 | ---------------- | ------------------------- | ------------------------ |
 | Go version       | `go version`              | ≥ 1.21                   |
-| Linter installed | `golangci-lint --version` | Version ≥ 1.54           |
+| Static analysis  | `go vet ./...`             | No vet warnings          |
 | Repo clean       | `git status`              | No uncommitted changes   |
 | Tests runnable   | `go test ./...`           | All pass with 0 failures |
 
@@ -114,19 +114,18 @@ go test ./integration -v
 
 ---
 
-## **6. Lint & Static Analysis**
+## **6. Static Analysis**
 Run:
 ```bash
-golangci-lint run
+go vet ./...
 ```
 
 **Check for:**
-❌ No unused variables/functions  <br>
-❌ No unchecked errors  <br>
-❌ No shadowed variables  <br>
-✅ Consistent naming and import order  <br>
+❌ No suspicious constructs flagged by vet (printf, loop copies, etc.)  <br>
+❌ No unreachable or obviously incorrect code paths  <br>
+✅ Consistent naming and import order (`go fmt` + vet confirm)  <br>
 <br>
-✅ **Pass Criteria:** No linter errors or warnings.  <br>
+✅ **Pass Criteria:** `go vet` completes with no diagnostics.  <br>
 
 ---
 

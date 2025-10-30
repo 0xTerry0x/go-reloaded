@@ -162,7 +162,7 @@ $ textfmt <input> <output>
 | ---- | -------- | ----------- |
 | **Unit Tests** | `internal/text`, `internal/engine`, `internal/punct`, `internal/rules` | Table-driven tests covering edge cases and transformation logic. |
 | **Integration Tests** | `integration/` | Golden tests verifying full pipeline output equals expected files in `testdata/`. |
-| **Lint & Vet** | `.golangci.yml` | Static checks for style, vetting, and potential panics. |
+| **Static Analysis** | Go toolchain (`go fmt`, `go vet`) | Built-in format and vet checks for style, suspicious constructs, and potential panics. |
 | **CI** | `.github/workflows/ci.yml` | Build + lint + test + race detector on PR. |
 
 ---

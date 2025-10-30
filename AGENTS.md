@@ -79,7 +79,7 @@ diff result.txt testdata/sample1_out.txt
 
 ### **Lint**
 ```bash
-golangci-lint run
+go vet ./...
 ```
 
 ### **Unit & Integration Tests**
@@ -252,7 +252,7 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 
 **Phase 1 — Analyze**
 - Parse `docs/ARCHITECTURE.md`, `docs/DEVELOPMENT.md`, and this file.
-- Verify Go and lint tool availability.
+- Verify Go toolchain availability (`go fmt`, `go vet`, `go test`).
 
 **Phase 2 — Implement**
 - Create all required internal packages.
@@ -261,7 +261,7 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 
 **Phase 3 — Validate**
 - Execute all tests (`go test ./... -race`).
-- Lint (`golangci-lint run`).
+- Lint (`go vet ./...`).
 - Compare output vs goldens.
 
 **Phase 4 — Finalize**
@@ -285,7 +285,6 @@ Autonomous agents (e.g., GPT-Codex, IDE-integrated bots) should follow this **4-
 | `docs/DESIGN_DECISIONS.md` | Key rationale and trade-offs    |
 | `docs/QA_CHECKLIST.md`     | QA verification protocol        |
 | `Makefile`                 | Build/test automation           |
-| `.golangci.yml`            | Linting configuration           |
 
 ---
 

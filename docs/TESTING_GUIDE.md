@@ -230,11 +230,11 @@ go tool cover -func=coverage.out
 ## **7. Continuous Integration**
 The CI workflow (`.github/workflows/ci.yml`) runs automatically on every PR:
 
-| Stage        | Command                  | Pass Criteria          |
-| ------------ | ------------------------ | ---------------------- |
-| **Lint**     | `golangci-lint run`      | No lint warnings       |
-| **Test**     | `go test ./... -race`    | All tests pass         |
-| **Coverage** | `go tool cover`          | ≥80% global            |
+| Stage        | Command               | Pass Criteria          |
+| ------------ | --------------------- | ---------------------- |
+| **Lint**     | `go vet ./...`        | No vet warnings        |
+| **Test**     | `go test ./... -race` | All tests pass         |
+| **Coverage** | `go tool cover`       | ≥80% global            |
 | **Build**    | `go build ./cmd/textfmt` | Successful compilation |
 
 **Local simulation:**

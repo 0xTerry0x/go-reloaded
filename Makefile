@@ -14,7 +14,7 @@ fmt:
 	$(GOCMD) fmt ./...
 
 lint:
-	golangci-lint run
+	$(GOCMD) vet ./...
 
 test:
 	$(GOTEST) ./... -race

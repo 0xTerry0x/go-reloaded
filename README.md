@@ -121,13 +121,12 @@ make fmt          # optional: keep sources formatted
 ### Tooling
 
 - Go ≥ 1.21
-- `golangci-lint` on your PATH (for make lint / CI)
-- No third-party Go modules (standard library only)
+- No third-party Go modules or external linters (standard library only)
 
 ### Quality checks
 
 ```bash
-make lint         # golangci-lint run
+make lint         # go vet ./...
 make test         # go test ./... -race
 make coverage     # creates coverage.out
 make build        # builds bin/textfmt

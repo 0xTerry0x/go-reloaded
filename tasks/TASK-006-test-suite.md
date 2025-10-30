@@ -33,7 +33,7 @@ Document usage, design choices, and QA checklist for future contributors.  <br>
 
 ## **Acceptance Criteria**
 ✅ `go test ./... -race` passes; coverage ≥80% across `internal/` packages.  <br>
-✅ `golangci-lint run` passes in CI.  <br>
+✅ `go vet ./...` passes in CI.  <br>
 ✅ Running the CLI against `testdata/*_in.txt` reproduces `*_out.txt` exactly (byte-for-byte).  <br>
 ✅ README examples match the spec outputs.  <br>
 

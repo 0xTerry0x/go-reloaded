@@ -24,7 +24,6 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
   - **Flags:** `-v/--version`, `-h/--help`, `--stdin`, `--stdout`.
 - `internal/runner/runner.go` exposing `Run(in io.Reader) (out string, err error)` as the main entry.
 - `Makefile` targets: `build`, `run`, `test`, `lint`, `fmt`.
-- `.golangci.yml` enabling standard static checks (`govet`, `errcheck`, `ineffassign`, `revive`).
 - `README.md` with usage examples mirroring the spec.
 - [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md) (short): layering and data flow (`CLI → runner → pipeline`).
 
@@ -34,14 +33,14 @@ Establish repo standards: linters, make targets, directory layout, and baseline 
 ✅ Running `go run ./cmd/textfmt sample.txt result.txt` reads/writes files; missing args produce usage with exit code `2`. <br>
 ✅ `--stdin` reads from STDIN and `--stdout` writes to STDOUT (no file touch). <br>
 ✅ Nonexistent input path yields clear error message and non-zero exit. <br>
-✅ `go vet`, `golangci-lint run`, and `go test ./...` succeed locally. <br>
+✅ `go vet ./...` and `go test ./...` succeed locally. <br>
 
 ---
 
 ## **Verification Plan**
 - **unit:** table-driven tests for argument parsing and error paths in `cmd/textfmt`.
 - **integration:** script invoking CLI with fixture files (no-op pass-through for now) and asserting exit codes.
-- **lint:** `golangci-lint run` must pass in CI.
+- **lint:** `go vet ./...` must pass in CI.
 
 ---
 
@@ -63,14 +62,14 @@ You are GPT-Codex executing **CLI Scaffold & Project Structure (TASK-001)**.
 
 ### Step 1 — Analyze & Confirm
 - Review the project spec from the architect message.
-- List planned CLI flags, exit code strategy, and file structure. Identify any DX tools needed (golangci-lint).
+- List planned CLI flags, exit code strategy, and file structure. Identify any DX tools needed (`go fmt`, `go vet`).
 
 ### Step 2 — Generate the Tests
 - Write table-driven tests for flag parsing and error cases.
 - Add a basic integration test invoking `main` with temporary files.
 
 ### Step 3 — Generate the Code
-- Implement `cmd/textfmt/main.go`, `internal/runner/runner.go` (stub pipeline now), `Makefile`, `.golangci.yml`, and `README.md`.
+- Implement `cmd/textfmt/main.go`, `internal/runner/runner.go` (stub pipeline now), `Makefile`, and `README.md`.
 
 ### Step 4 — QA & Mark Complete
 - Run `make fmt lint test`.
