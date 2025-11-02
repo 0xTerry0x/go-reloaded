@@ -46,9 +46,10 @@ const (
 
 // Node is a parsed element from the token stream.
 type Node struct {
-	Kind   NodeKind
-	Value  string
-	Marker *Marker
+	Kind           NodeKind
+	Value          string
+	Marker         *Marker
+	CaseTransform  *MarkerType // tracks last case transformation applied (up/low/cap) for word nodes
 }
 
 // Marker captures a transformation directive such as (up, 2).

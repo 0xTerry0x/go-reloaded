@@ -31,11 +31,14 @@ func ApplyMarkers(nodes []text.Node) ([]text.Node, error) {
 				return nil, err
 			}
 		case text.MarkerUp:
-			applyWordTransform(out, i, node.Marker.Count, strings.ToUpper)
+			markerType := text.MarkerUp
+			applyWordTransform(out, i, node.Marker.Count, strings.ToUpper, &markerType)
 		case text.MarkerLow:
-			applyWordTransform(out, i, node.Marker.Count, strings.ToLower)
+			markerType := text.MarkerLow
+			applyWordTransform(out, i, node.Marker.Count, strings.ToLower, &markerType)
 		case text.MarkerCap:
-			applyWordTransform(out, i, node.Marker.Count, capitalizeWord)
+			markerType := text.MarkerCap
+			applyWordTransform(out, i, node.Marker.Count, capitalizeWord, &markerType)
 		default:
 			return nil, fmt.Errorf("unknown marker type: %s", node.Marker.Type)
 		}
@@ -79,7 +82,7 @@ func validBinary(s string) bool {
 	return len(s) > 0
 }
 
-func applyWordTransform(nodes []text.Node, markerIndex int, countPtr *int, transform func(string) string) {
+func applyWordTransform(nodes []text.Node, markerIndex int, countPtr *int, transform func(string) string, transformType *text.MarkerType) {
 	count := 1
 	if countPtr != nil {
 		count = *countPtr
@@ -91,6 +94,7 @@ func applyWordTransform(nodes []text.Node, markerIndex int, countPtr *int, trans
 	wordIndices := findPreviousWord(nodes, markerIndex, count)
 	for _, idx := range wordIndices {
 		nodes[idx].Value = transform(nodes[idx].Value)
+		nodes[idx].CaseTransform = transformType
 	}
 }
 

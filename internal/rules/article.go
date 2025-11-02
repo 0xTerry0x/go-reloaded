@@ -27,7 +27,8 @@ func FixArticles(nodes []text.Node) []text.Node {
 
 		nextWord := out[nextIdx].Value
 		if beginsWithVowelOrH(nextWord) {
-			out[i].Value = convertArticle(node.Value)
+			wasUppercased := node.CaseTransform != nil && *node.CaseTransform == text.MarkerUp
+			out[i].Value = convertArticle(node.Value, wasUppercased)
 		}
 	}
 
@@ -51,8 +52,11 @@ func beginsWithVowelOrH(word string) bool {
 	}
 }
 
-func convertArticle(article string) string {
+func convertArticle(article string, wasUppercased bool) string {
 	if article == "A" {
+		if wasUppercased {
+			return "AN"
+		}
 		return "An"
 	}
 	return "an"
