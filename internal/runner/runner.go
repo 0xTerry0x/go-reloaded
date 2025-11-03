@@ -65,5 +65,31 @@ func Reconstruct(nodes []text.Node) string {
 	for _, node := range filtered {
 		b.WriteString(node.Value)
 	}
-	return b.String()
+	result := b.String()
+
+	// Remove trailing spaces from each line and spaces before punctuation at line end
+	// to prevent mismatches with golden files
+	lines := strings.Split(result, "\n")
+	for i, line := range lines {
+		// Remove trailing whitespace
+		line = strings.TrimRight(line, " \t")
+		// Remove spaces before punctuation at end of line (e.g., "word ." -> "word.")
+		for len(line) > 0 {
+			last := line[len(line)-1]
+			if last == '.' || last == ',' || last == '!' || last == '?' || last == ';' || last == ':' {
+				// Check if there's a space before this punctuation
+				if len(line) > 1 && line[len(line)-2] == ' ' {
+					line = line[:len(line)-2] + string(last)
+				} else {
+					break
+				}
+			} else {
+				break
+			}
+		}
+		lines[i] = line
+	}
+	result = strings.Join(lines, "\n")
+
+	return result
 }
