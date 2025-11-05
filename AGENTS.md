@@ -8,38 +8,7 @@
 
 ---
 
-## **1. Add AGENTS.md**
-Create an `AGENTS.md` file at the root of the repository.  <br>
-Most coding agents can even scaffold one for you if you ask nicely.  <br>
-
----
-
-## **2. Cover What Matters**
-Add sections that help an agent work effectively with your project.  <br>
-Popular choices include:
-- Project overview
-- Build and test commands
-- Code style guidelines
-- Testing instructions
-- Security considerations
-
----
-
-## **3. Add Extra Instructions**
-Commit messages or pull request guidelines, security gotchas, large datasets, deployment steps — anything you’d tell a new teammate belongs here too.  <br>
-
----
-
-## **4. Large Monorepo? Use Nested `AGENTS.md` Files for Subprojects**
-Place another `AGENTS.md` inside each package.  <br>
-Agents automatically read the nearest file in the directory tree, so the closest one takes precedence and every subproject can ship tailored instructions.  <br>
-
-Example:  <br>
-At time of writing, the main OpenAI repo has **88 AGENTS.md** files.
-
----
-
-## ** Pipeline Overview**
+## **1. Pipeline Overview**
 ```
 Lex → Parse → Transform (hex/bin/up/low/cap)
    → Normalize (punctuation, apostrophes)
