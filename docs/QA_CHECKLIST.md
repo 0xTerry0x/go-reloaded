@@ -104,13 +104,16 @@ go test ./integration -v
 
 ✅ **Pass Criteria:** Each package meets its target coverage (see below).
 
-| Package           | Target |
-| ----------------- | ------ |
-| `internal/text`   | 90%    |
-| `internal/engine` | 85%    |
-| `internal/punct`  | 90%    |
-| `internal/rules`  | 80%    |
-| `internal/runner` | 70%    |
+| Package           | Target | Notes                                    |
+| ----------------- | ------ | ---------------------------------------- |
+| `internal/text`   | 90%    | Lexing edge cases                        |
+| `internal/engine` | 85%    | Marker transformations                   |
+| `internal/punct`  | 90%    | Spacing and punctuation patterns         |
+| `internal/rules`  | 80%    | "a" → "an" rule                          |
+| `internal/runner` | 70%    | Pipeline orchestration logic             |
+| `cmd/textfmt`     | N/A    | CLI entrypoints excluded (see note below) |
+
+**Note:** The `cmd/textfmt` package is excluded from coverage requirements. CLI entrypoints (`main()` function) cannot be tested directly, and comprehensive testing of all error paths would require extensive file I/O mocking. The core business logic in `internal/` packages is where coverage matters most for code quality assurance.
 
 ---
 

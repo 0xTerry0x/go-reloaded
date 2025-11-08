@@ -22,6 +22,9 @@ test:
 coverage:
 	$(GOTEST) ./... -race -coverprofile=coverage.out
 	$(GOCMD) tool cover -func=coverage.out
+	$(GOCMD) tool cover -html=coverage.out -o coverage.html
+	@echo "Coverage report generated: coverage.html"
+	@echo "Open it with: open coverage.html"
 
 build:
 	mkdir -p $(BIN_DIR)

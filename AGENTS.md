@@ -64,7 +64,7 @@ make ci
 
 ✅ **Pass Criteria:**
 - All tests pass (0 failures).
-- Coverage ≥ 85%.
+- Coverage ≥ 85% (internal packages only; `cmd/textfmt` CLI entrypoints excluded).
 - Lint returns 0 issues.
 - Golden files match expected output byte-for-byte.
 

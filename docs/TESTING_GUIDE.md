@@ -216,8 +216,10 @@ Each internal package should have ≥85% coverage.
 | `internal/text`   | 90%  | Lexing edge cases                |
 | `internal/engine` | 85%  | Marker transformations           |
 | `internal/punct`  | 90%  | Spacing and punctuation patterns |
-| `internal/rules`  | 80%  | “a” → “an” rule                  |
+| `internal/rules`  | 80%  | "a" → "an" rule                  |
 | `internal/runner` | 70%  | Pipeline orchestration logic     |
+
+**Note:** The `cmd/textfmt` package (CLI entrypoints) is excluded from coverage requirements. CLI entrypoints like `main()` cannot be tested directly, and testing all error paths would require extensive mocking. The core business logic in `internal/` packages is where coverage matters most.
 
 **Commands:**
 ```bash

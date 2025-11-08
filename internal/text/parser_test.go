@@ -102,3 +102,33 @@ func TestParseInvalidMarkerFormatting(t *testing.T) {
 		t.Fatal("expected error for invalid formatting, got nil")
 	}
 }
+
+func TestParseError(t *testing.T) {
+	t.Parallel()
+
+	t.Run("ParseError string representation", func(t *testing.T) {
+		t.Parallel()
+		err := &ParseError{
+			Offset: 42,
+			Msg:    "test error message",
+		}
+		got := err.Error()
+		want := "parse error at byte 42: test error message"
+		if got != want {
+			t.Fatalf("expected %q, got %q", want, got)
+		}
+	})
+
+	t.Run("ParseError with zero offset", func(t *testing.T) {
+		t.Parallel()
+		err := &ParseError{
+			Offset: 0,
+			Msg:    "zero offset error",
+		}
+		got := err.Error()
+		want := "parse error at byte 0: zero offset error"
+		if got != want {
+			t.Fatalf("expected %q, got %q", want, got)
+		}
+	})
+}
